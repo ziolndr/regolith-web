@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Regolith</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --gray-900: #0f0f0f;
+      --gray-800: #1a1a1a;
+      --gray-700: #2a2a2a;
+      --gray-600: #3a3a3a;
+      --gray-500: #5a5a5a;
+      --gray-400: #7a7a7a;
+      --gray-300: #9a9a9a;
+      --gray-200: #bababa;
+      --gray-100: #dadada;
+      --accent: #ffffff;
+      --success: #22c55e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.5;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--gray-800);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--gray-300);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 300;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      margin-bottom: 32px;
+    }
+
+    .hero-subtitle {
+      font-size: 28px;
+      color: var(--gray-200);
+      margin-bottom: 32px;
+      font-weight: 400;
+      line-height: 1.3;
+      max-width: 700px;
+    }
+
+    .hero-description {
+      font-size: 18px;
+      color: var(--gray-400);
+      line-height: 1.6;
+      margin-bottom: 48px;
+      max-width: 640px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-bottom: 64px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-stat-value {
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .hero-stat-label {
+      font-size: 14px;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Terminal */
+    .terminal {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-700);
+      border-radius: 8px;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+      margin: 64px 0;
+      overflow: hidden;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+    }
+
+    .terminal-header {
+      background: var(--gray-800);
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--gray-700);
+      font-size: 13px;
+      color: var(--gray-400);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gray-600);
+    }
+
+    .terminal-content {
+      padding: 32px 24px;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .terminal-line {
+      display: flex;
+      margin-bottom: 8px;
+    }
+
+    .prompt {
+      color: var(--gray-500);
+      margin-right: 16px;
+      user-select: none;
+    }
+
+    .command {
+      color: var(--white);
+    }
+
+    .output {
+      color: var(--gray-400);
+      margin-left: 32px;
+      font-size: 13px;
+    }
+
+    .output.success {
+      color: var(--success);
+    }
+
+    /* Problem Statement */
+    .problem {
+      padding: 160px 0;
+    }
+
+    .problem h2 {
+      font-size: 48px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .problem-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .problem p {
+      font-size: 20px;
+      color: var(--gray-300);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .problem-highlight {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-700);
+      border-radius: 8px;
+      padding: 32px;
+      margin: 48px 0;
+      text-align: left;
+    }
+
+    .problem-highlight h3 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--white);
+    }
+
+    .problem-highlight p {
+      font-size: 16px;
+      color: var(--gray-400);
+      margin-bottom: 0;
+      text-align: left;
+    }
+
+    /* How It Works */
+    .how-it-works {
+      padding: 160px 0;
+      background: var(--gray-900);
+    }
+
+    .how-it-works h2 {
+      font-size: 48px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .how-it-works-subtitle {
+      text-align: center;
+      font-size: 18px;
+      color: var(--gray-400);
+      margin-bottom: 64px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 64px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      margin-bottom: 64px;
+    }
+
+    .step {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .step.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .step:nth-child(2).animate {
+      transition-delay: 0.2s;
+    }
+
+    .step:nth-child(3).animate {
+      transition-delay: 0.4s;
+    }
+
+    .step-number {
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--gray-500);
+      margin-bottom: 16px;
+    }
+
+    .step h3 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--white);
+    }
+
+    .step p {
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    .step-code {
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+      font-size: 14px;
+      background: var(--black);
+      border: 1px solid var(--gray-700);
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin-top: 16px;
+      color: var(--success);
+    }
+
+    /* Features */
+    .features {
+      padding: 160px 0;
+      background: linear-gradient(135deg, var(--black) 0%, var(--gray-900) 100%);
+    }
+
+    .features h2 {
+      font-size: 48px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 64px;
+      text-align: center;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 64px;
+    }
+
+    .feature {
+      padding: 32px;
+      background: linear-gradient(135deg, var(--gray-900) 0%, var(--black) 100%);
+      border: 1px solid var(--gray-700);
+      border-radius: 12px;
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+      transform: rotate(45deg);
+      transition: all 0.8s ease;
+      opacity: 0;
+    }
+
+    .feature.animate {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .feature:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--gray-500);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .feature:hover::before {
+      opacity: 1;
+      transform: rotate(45deg) translate(20px, 20px);
+    }
+
+    .feature h3 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--white);
+    }
+
+    .feature p {
+      color: var(--gray-400);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .feature-detail {
+      font-size: 14px;
+      color: var(--gray-500);
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+    }
+
+    /* Architecture */
+    .architecture {
+      padding: 160px 0;
+      background: var(--gray-900);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .architecture::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .architecture h2 {
+      font-size: 48px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .architecture-subtitle {
+      text-align: center;
+      font-size: 18px;
+      color: var(--gray-400);
+      margin-bottom: 64px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 64px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .arch-diagram {
+      max-width: 800px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .arch-layer {
+      padding: 40px;
+      border: 1px solid var(--gray-600);
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--black) 0%, var(--gray-800) 100%);
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .arch-layer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      transition: left 0.8s ease;
+    }
+
+    .arch-layer:hover {
+      border-color: var(--gray-400);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .arch-layer:hover::before {
+      left: 100%;
+    }
+
+    .arch-layer h3 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .arch-layer p {
+      font-size: 15px;
+      color: var(--gray-400);
+      line-height: 1.5;
+    }
+
+    /* CTA */
+    .cta {
+      padding: 160px 0;
+      text-align: center;
+      background: linear-gradient(135deg, var(--black) 0%, var(--gray-900) 50%, var(--black) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: 
+        conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255, 255, 255, 0.02) 60deg, transparent 120deg, rgba(255, 255, 255, 0.02) 180deg, transparent 240deg, rgba(255, 255, 255, 0.02) 300deg, transparent 360deg);
+      animation: rotate 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .cta h2 {
+      font-size: 48px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta p {
+      font-size: 20px;
+      color: var(--gray-300);
+      margin-bottom: 48px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 48px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 18px 36px;
+      background: var(--white);
+      color: var(--black);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .btn:hover {
+      background: var(--gray-100);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(255, 255, 255, 0.1);
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--gray-600);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--white);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Footer */
+    footer {
+      padding: 80px 0;
+      border-top: 1px solid var(--gray-800);
+      text-align: center;
+    }
+
+    .footer-content {
+      color: var(--gray-500);
+      font-size: 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 32px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 120px;
+        padding-bottom: 80px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+        margin-bottom: 24px;
+        line-height: 1.1;
+      }
+
+      .hero-subtitle {
+        font-size: 24px;
+        margin-bottom: 24px;
+        line-height: 1.4;
+      }
+
+      .hero-description {
+        font-size: 16px;
+        margin-bottom: 48px;
+        line-height: 1.7;
+      }
+
+      .hero-stats {
+        gap: 24px;
+        justify-content: space-between;
+        max-width: 100%;
+      }
+
+      .hero-stat {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .hero-stat-value {
+        font-size: 28px;
+      }
+
+      .hero-stat-label {
+        font-size: 12px;
+      }
+
+      .terminal {
+        margin: 48px 0;
+      }
+
+      .problem,
+      .how-it-works,
+      .features,
+      .architecture,
+      .cta {
+        padding: 120px 0;
+      }
+
+      .problem h2,
+      .how-it-works h2,
+      .features h2,
+      .architecture h2,
+      .cta h2 {
+        font-size: 36px;
+        margin-bottom: 32px;
+      }
+
+      .problem p {
+        font-size: 18px;
+        margin-bottom: 24px;
+      }
+
+      .problem-highlight {
+        margin: 32px 0;
+        padding: 24px;
+      }
+
+      .how-it-works-subtitle,
+      .architecture-subtitle {
+        font-size: 16px;
+        margin-bottom: 48px;
+      }
+
+      .cta p {
+        font-size: 18px;
+        margin-bottom: 40px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <div class="logo">Regolith</div>
+      <ul class="nav-links">
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#github">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Rails for Distributed Systems</h1>
+          <p class="hero-subtitle">Everything you love about Rails — no longer boxed in.</p>
+          <p class="hero-description">
+            Regolith is the missing foundation layer that lets Rails breathe at scale. Transparent service generation, cross-boundary associations, and familiar Rails commands — all working across a distributed system without the boilerplate.
+          </p>
+
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-value">Full</div>
+              <div class="hero-stat-label">Rails Apps</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-value">Zero</div>
+              <div class="hero-stat-label">Docker Setup</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-value">&infin;</div>
+              <div class="hero-stat-label">Rails Magic</div>
+            </div>
+          </div>
+
+          <div class="terminal">
+            <div class="terminal-header">
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+              <span style="margin-left: 12px;">~/regolith_demo</span>
+            </div>
+            <div class="terminal-content">
+              <div class="terminal-line"><span class="prompt">$</span><span class="command"> regolith new marketplace</span></div>
+              <div class="terminal-line"><span class="output success">✅ Created Regolith app 'marketplace'</span></div>
+              <div class="terminal-line"><span class="output">→ Next: cd marketplace && regolith generate service &lt;service_name&gt;</span></div>
+              <div class="terminal-line"><span class="prompt">$</span><span class="command"> cd marketplace</span></div>
+              <div class="terminal-line"><span class="prompt">$</span><span class="command"> regolith generate service products</span></div>
+              <div class="terminal-line"><span class="output">🔧 Creating service 'products'...</span></div>
+              <div class="terminal-line"><span class="output success">✅ Created service 'products'</span></div>
+              <div class="terminal-line"><span class="prompt">$</span><span class="command"> regolith generate service orders</span></div>
+              <div class="terminal-line"><span class="output success">✅ Created service 'orders'</span></div>
+              <div class="terminal-line"><span class="prompt">$</span><span class="command"> regolith server</span></div>
+              <div class="terminal-line"><span class="output">products_service running at http://localhost:3001</span></div>
+              <div class="terminal-line"><span class="output">orders_service running at http://localhost:3002</span></div>
+              <div class="terminal-line"><span class="prompt">$</span><span class="command"> regolith console products</span></div>
+              <div class="terminal-line"><span class="output">🧪 Opening Rails console for products_service...</span></div>
+              <div class="terminal-line"><span class="prompt">&gt;&gt;</span><span class="command"> Product.create!(name: "iPhone", price: 999)</span></div>
+              <div class="terminal-line"><span class="output success">=&gt; #&lt;Product id: 1, name: "iPhone", price: 999&gt;</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="problem">
+      <div class="container">
+        <div class="problem-content">
+          <h2>Rails Microservices Made Simple</h2>
+          <p>
+            Setting up Rails microservices means hours of manual configuration: generating individual Rails APIs, 
+            setting up Docker containers, configuring orchestration, and managing service discovery.
+          </p>
+          <p>
+            Regolith automates this entire workflow. Generate production-ready Rails services, 
+            fully containerized and orchestrated, in seconds instead of hours.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works">
+      <div class="container">
+        <h2>How Regolith Works</h2>
+        <p class="how-it-works-subtitle">
+          Three commands to production-ready microservices architecture.
+        </p>
+
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">01</div>
+            <h3>Initialize Platform</h3>
+            <p>Creates project structure with Docker orchestration, PostgreSQL configuration, and service registry.</p>
+            <div class="step-code">regolith new myapp</div>
+          </div>
+          <div class="step">
+            <div class="step-number">02</div>
+            <h3>Generate Services</h3>
+            <p>Scaffolds complete Rails API apps with Docker containers, CORS configuration, and automatic port assignment.</p>
+            <div class="step-code">regolith generate service users</div>
+          </div>
+          <div class="step">
+            <div class="step-number">03</div>
+            <h3>Deploy & Scale</h3>
+            <p>Starts all services with Docker Compose. Each service scales independently with production PostgreSQL.</p>
+            <div class="step-code">regolith server</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="container">
+        <h2>Built for Production</h2>
+
+        <div class="features-grid">
+          <div class="feature">
+            <h3>Complete Rails APIs</h3>
+            <p>Each service is a full Rails 7 API application with PostgreSQL, CORS configuration, and production-ready structure.</p>
+            <div class="feature-detail">rails new --api with custom optimizations</div>
+          </div>
+          
+          <div class="feature">
+            <h3>Docker Orchestration</h3>
+            <p>Automatic Docker containerization with optimized Ruby 3.1 images, volume mounting, and multi-service networking.</p>
+            <div class="feature-detail">docker-compose.yml generation and management</div>
+          </div>
+          
+          <div class="feature">
+            <h3>Service Discovery</h3>
+            <p>Built-in service registry tracks all services with automatic port assignment and environment configuration.</p>
+            <div class="feature-detail">config/regolith.yml service coordination</div>
+          </div>
+          
+          <div class="feature">
+            <h3>Development Tools</h3>
+            <p>Rails console access per service, hot-reload development, and integrated debugging across the entire platform.</p>
+            <div class="feature-detail">regolith console &lt;service_name&gt;</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="architecture" id="architecture">
+      <div class="container">
+        <h2>Production Architecture</h2>
+        <p class="architecture-subtitle">
+          Enterprise-ready microservices platform with Rails at the core.
+        </p>
+        <div class="arch-diagram">
+          <div class="arch-layer">
+            <h3>Rails API Services</h3>
+            <p>Independent Rails 7 applications with PostgreSQL, optimized for API development and horizontal scaling</p>
+          </div>
+          <div class="arch-layer">
+            <h3>Docker Orchestration</h3>
+            <p>Containerized services with Docker Compose, automatic networking, and production-optimized configurations</p>
+          </div>
+          <div class="arch-layer">
+            <h3>Service Registry</h3>
+            <p>Centralized service configuration with automatic port management and environment synchronization</p>
+          </div>
+          <div class="arch-layer">
+            <h3>PostgreSQL Database</h3>
+            <p>Shared production database with per-service schema isolation and connection pooling</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="github">
+      <div class="container">
+        <h2>Ready to rebuild Rails at scale?</h2>
+        <p>Join the early adopters using Regolith to cut through complexity, unify services, and keep Rails relevant in the distributed age.</p>
+        <div class="cta-buttons">
+          <a href="https://github.com/yourusername/regolith" class="btn">Get Regolith</a>
+          <a href="mailto:hello@regolith.dev" class="btn btn-secondary">Talk with Us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">&copy; 2025 Regolith. Built without compromise.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Header background on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 100) {
+        header.style.background = 'rgba(0, 0, 0, 0.98)';
+      } else {
+        header.style.background = 'rgba(0, 0, 0, 0.95)';
+      }
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -10% 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains('feature')) {
+            entry.target.classList.add('animate');
+          }
+          if (entry.target.classList.contains('step')) {
+            entry.target.classList.add('animate');
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for animation
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.feature, .step').forEach(el => {
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>
