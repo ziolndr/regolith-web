@@ -3,23 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Regolith – Rails for Distributed Systems</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <title>Regolith – Infrastructure that flows</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --black: #000000;
-      --white: #ffffff;
-      --gray-900: #0f0f0f;
-      --gray-800: #1a1a1a;
-      --gray-700: #2a2a2a;
-      --gray-600: #3a3a3a;
-      --gray-500: #5a5a5a;
-      --gray-400: #7a7a7a;
-      --gray-300: #9a9a9a;
-      --gray-200: #bababa;
-      --gray-100: #dadada;
-      --accent: #ffffff;
-      --success: #22c55e;
+      --void: #000000;
+      --obsidian: #0a0a0a;
+      --slate: #1a1a1a;
+      --graphite: #2a2a2a;
+      --steel: #3a3a3a;
+      --aluminum: #5a5a5a;
+      --silver: #9a9a9a;
+      --platinum: #ffffff;
+      
+      --glass: rgba(255, 255, 255, 0.04);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-hover: rgba(255, 255, 255, 0.06);
+      
+      --terminal-green: #00ff88;
+      --warning-amber: #ffaa00;
+      --error-red: #ff4444;
+      --info-blue: #44aaff;
+      
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+      --space-4xl: 96px;
+      
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
     }
 
     * {
@@ -30,1090 +48,1272 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--black);
-      color: var(--white);
-      line-height: 1.5;
-      font-weight: 400;
+      background: var(--void);
+      color: var(--platinum);
+      overflow: hidden;
+      height: 100vh;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* Header */
-    header {
+    /* Minimal floating particles */
+    .particles {
       position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      z-index: 100;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--gray-800);
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 80px;
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 40px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--gray-300);
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--white);
-    }
-
-    /* Hero */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 120px 0 80px 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    .hero-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      text-align: left;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero h1 {
-      font-size: clamp(56px, 10vw, 120px);
-      font-weight: 300;
-      letter-spacing: -0.04em;
-      line-height: 0.85;
-      margin-bottom: 40px;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(28px, 5vw, 48px);
-      color: var(--gray-200);
-      margin-bottom: 40px;
-      font-weight: 300;
-      line-height: 1.2;
-      max-width: 900px;
-    }
-
-    .hero-description {
-      font-size: clamp(18px, 2.5vw, 24px);
-      color: var(--gray-400);
-      line-height: 1.5;
-      margin-bottom: 60px;
-      max-width: 800px;
-    }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 60px;
-      margin-bottom: 80px;
-      max-width: 800px;
-      word-wrap: break-word;
-    }
-
-    .hero-stat {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-      padding: 32px 24px;
-      background: linear-gradient(135deg, var(--gray-900) 0%, var(--black) 100%);
-      border: 1px solid var(--gray-700);
-      border-radius: 12px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-stat::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-      transition: left 0.8s ease;
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .hero-stat:hover {
-      transform: translateY(-4px);
-      border-color: var(--gray-500);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    .particle {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      background: var(--silver);
+      border-radius: 50%;
+      opacity: 0;
+      animation: float 25s infinite linear;
     }
 
-    .hero-stat:hover::before {
-      left: 100%;
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { left: 30%; animation-delay: 5s; }
+    .particle:nth-child(3) { left: 50%; animation-delay: 10s; }
+    .particle:nth-child(4) { left: 70%; animation-delay: 15s; }
+    .particle:nth-child(5) { left: 90%; animation-delay: 20s; }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.1; }
+      90% { opacity: 0.1; }
+      100% { transform: translateY(-100px) scale(1); opacity: 0; }
     }
 
-    .hero-stat-value {
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
+    /* Main Navigation Shell */
+    .nav-shell {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 100;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-shell.expanded {
+      top: var(--space-lg);
+      transform: translate(-50%, 0);
+    }
+
+    .nav-core {
+      background: var(--glass);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-sm) var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xl);
       position: relative;
-      z-index: 2;
-    }
-
-    .hero-stat-label {
-      font-size: clamp(14px, 2vw, 18px);
-      color: var(--gray-400);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 500;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* Terminal */
-    .terminal {
-      background: var(--gray-900);
-      border: 1px solid var(--gray-700);
-      border-radius: 8px;
-      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
-      margin: 64px auto;
-      max-width: 800px;
       overflow: hidden;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
-      word-wrap: break-word;
+      transition: all 0.3s ease;
+    }
+
+    .nav-core::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--terminal-green), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-core:hover::before,
+    .nav-core.active::before {
+      opacity: 1;
+    }
+
+    /* Stacked Logo */
+    .logo-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      cursor: pointer;
+    }
+
+    .logo-part {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .logo-rego {
+      color: var(--platinum);
+    }
+
+    .logo-lith {
+      background: var(--graphite);
+      border-color: var(--steel);
+      color: var(--silver);
+    }
+
+    .logo-part:hover {
+      background: var(--glass-hover);
+      border-color: var(--terminal-green);
+      color: var(--terminal-green);
+      box-shadow: 0 0 12px rgba(0, 255, 136, 0.2);
+    }
+
+    .logo-part.active {
+      background: var(--terminal-green);
+      color: var(--void);
+      border-color: var(--terminal-green);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      cursor: pointer;
+      padding: var(--space-sm);
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+    }
+
+    .hamburger:hover {
+      background: var(--glass-hover);
+    }
+
+    .hamburger-line {
+      width: 18px;
+      height: 2px;
+      background: var(--silver);
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active .hamburger-line:nth-child(1) {
+      transform: rotate(45deg) translateY(5px);
+    }
+
+    .hamburger.active .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active .hamburger-line:nth-child(3) {
+      transform: rotate(-45deg) translateY(-5px);
+    }
+
+    /* Content Panels */
+    .content-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--glass);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-2xl);
+      max-width: 600px;
+      width: 90vw;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 50;
+    }
+
+    .content-panel.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .content-panel.hidden {
+      transform: translate(-50%, -50%) scale(0.95);
+    }
+
+    /* Panel Content */
+    .panel-preamble {
+      margin-bottom: var(--space-xl);
+      font-size: 16px;
+      color: var(--silver);
+      line-height: 1.6;
+    }
+
+    .panel-caption {
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .panel-caption p {
+      font-size: 14px;
+      color: var(--aluminum);
+      margin-bottom: var(--space-md);
+    }
+
+    .cli-reference {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--silver);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .cli-reference:hover {
+      color: var(--terminal-green);
+    }
+
+    /* CLI Reference Panel */
+    .cli-panel {
+      max-width: 700px;
+    }
+
+    .cli-section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .cli-section-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--terminal-green);
+      margin-bottom: var(--space-md);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .cli-command {
+      background: var(--obsidian);
+      border: 1px solid var(--slate);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .cli-command-header {
+      color: var(--terminal-green);
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .cli-command-usage {
+      color: var(--platinum);
+      font-size: 13px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .cli-command-desc {
+      color: var(--silver);
+      font-size: 12px;
+      line-height: 1.5;
+      margin-bottom: var(--space-sm);
+    }
+
+    .cli-command-example {
+      color: var(--aluminum);
+      font-size: 11px;
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--graphite);
+    }
+
+    .cli-workflow {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .cli-workflow-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--platinum);
+      margin-bottom: var(--space-md);
+    }
+
+    .cli-workflow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+
+    .cli-workflow-number {
+      color: var(--terminal-green);
+      font-weight: 600;
+      min-width: 20px;
+    }
+
+    .cli-workflow-command {
+      color: var(--platinum);
+    }
+
+    /* Terminal Panel */
+    .terminal-panel {
+      background: var(--obsidian);
+      border: 1px solid var(--slate);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
     }
 
     .terminal-header {
-      background: var(--gray-800);
-      padding: 16px 24px;
-      border-bottom: 1px solid var(--gray-700);
-      font-size: 13px;
-      color: var(--gray-400);
+      background: var(--slate);
+      padding: var(--space-md);
+      border-bottom: 1px solid var(--graphite);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: var(--space-md);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: var(--space-sm);
     }
 
     .terminal-dot {
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: var(--gray-600);
+    }
+
+    .terminal-dot:nth-child(1) { background: var(--error-red); }
+    .terminal-dot:nth-child(2) { background: var(--warning-amber); }
+    .terminal-dot:nth-child(3) { background: var(--terminal-green); }
+
+    .terminal-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--aluminum);
     }
 
     .terminal-content {
-      padding: 32px 24px;
+      padding: var(--space-xl);
+      font-family: 'JetBrains Mono', monospace;
       font-size: 14px;
       line-height: 1.8;
+      background: var(--obsidian);
     }
 
     .terminal-line {
-      display: flex;
-      margin-bottom: 8px;
+      margin-bottom: var(--space-sm);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: slideUp 0.5s ease forwards;
+    }
+
+    .terminal-line:nth-child(1) { animation-delay: 0.2s; }
+    .terminal-line:nth-child(2) { animation-delay: 0.4s; }
+    .terminal-line:nth-child(3) { animation-delay: 0.6s; }
+    .terminal-line:nth-child(4) { animation-delay: 0.8s; }
+    .terminal-line:nth-child(5) { animation-delay: 1.0s; }
+    .terminal-line:nth-child(6) { animation-delay: 1.2s; }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .prompt {
-      color: var(--gray-500);
-      margin-right: 16px;
-      user-select: none;
+      color: var(--terminal-green);
+      margin-right: var(--space-md);
+      font-weight: 600;
     }
 
     .command {
-      color: var(--white);
+      color: var(--platinum);
     }
 
     .output {
-      color: var(--gray-400);
-      margin-left: 32px;
+      color: var(--silver);
+      margin-left: var(--space-xl);
       font-size: 13px;
     }
 
-    .output.success {
-      color: var(--success);
+    .output-success {
+      color: var(--terminal-green);
     }
 
-    /* Problem Statement */
-    .problem {
-      padding: 160px 0;
+    .output-warning {
+      color: var(--warning-amber);
     }
 
-    .problem h2 {
-      font-size: 48px;
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      margin-bottom: 48px;
-      text-align: center;
+    .output-info {
+      color: var(--info-blue);
     }
 
-    .problem-content {
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .problem p {
-      font-size: 20px;
-      color: var(--gray-300);
-      line-height: 1.6;
-      margin-bottom: 32px;
-    }
-
-    .problem-highlight {
-      background: var(--gray-900);
-      border: 1px solid var(--gray-700);
-      border-radius: 8px;
-      padding: 32px;
-      margin: 48px 0;
-      text-align: left;
-    }
-
-    .problem-highlight h3 {
-      font-size: 18px;
-      font-weight: 500;
-      margin-bottom: 16px;
-      color: var(--white);
-    }
-
-    .problem-highlight p {
-      font-size: 16px;
-      color: var(--gray-400);
-      margin-bottom: 0;
-      text-align: left;
-    }
-
-    /* How It Works */
-    .how-it-works {
-      padding: 160px 0;
-      background: var(--gray-900);
-    }
-
-    .how-it-works h2 {
-      font-size: 48px;
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      margin-bottom: 32px;
-      text-align: center;
-    }
-
-    .how-it-works-subtitle {
-      text-align: center;
-      font-size: 18px;
-      color: var(--gray-400);
-      margin-bottom: 64px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 64px;
-    }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 48px;
-      margin-bottom: 64px;
-    }
-
-    .step {
-      text-align: center;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .step.animate {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .step:nth-child(2).animate {
-      transition-delay: 0.2s;
-    }
-
-    .step:nth-child(3).animate {
-      transition-delay: 0.4s;
-    }
-
-    .step-number {
-      font-size: 32px;
-      font-weight: 300;
-      color: var(--gray-500);
-      margin-bottom: 16px;
-    }
-
-    .step h3 {
-      font-size: 18px;
-      font-weight: 500;
-      margin-bottom: 16px;
-      color: var(--white);
-    }
-
-    .step p {
-      color: var(--gray-400);
-      line-height: 1.6;
-    }
-
-    .step-code {
-      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
-      font-size: 14px;
-      background: var(--black);
-      border: 1px solid var(--gray-700);
-      border-radius: 4px;
-      padding: 12px 16px;
-      margin-top: 16px;
-      color: var(--success);
-    }
-
-    /* Features */
-    .features {
-      padding: 160px 0;
-      background: linear-gradient(135deg, var(--black) 0%, var(--gray-900) 100%);
-    }
-
-    .features h2 {
-      font-size: 48px;
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      margin-bottom: 64px;
-      text-align: center;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 64px;
-    }
-
-    .feature {
-      padding: 32px;
-      background: linear-gradient(135deg, var(--gray-900) 0%, var(--black) 100%);
-      border: 1px solid var(--gray-700);
-      border-radius: 12px;
-      opacity: 0;
-      transform: translateY(20px) scale(0.95);
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .feature::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
-      transform: rotate(45deg);
-      transition: all 0.8s ease;
-      opacity: 0;
-    }
-
-    .feature.animate {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    .feature:hover {
-      transform: translateY(-8px) scale(1.02);
-      border-color: var(--gray-500);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .feature:hover::before {
-      opacity: 1;
-      transform: rotate(45deg) translate(20px, 20px);
-    }
-
-    .feature h3 {
-      font-size: 18px;
-      font-weight: 500;
-      margin-bottom: 16px;
-      color: var(--white);
-    }
-
-    .feature p {
-      color: var(--gray-400);
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-
-    .feature-detail {
-      font-size: 14px;
-      color: var(--gray-500);
-      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
-    }
-
-    /* Architecture */
-    .architecture {
-      padding: 160px 0;
-      background: var(--gray-900);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .architecture::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    .architecture h2 {
-      font-size: 48px;
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      margin-bottom: 32px;
-      text-align: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    .architecture-subtitle {
-      text-align: center;
-      font-size: 18px;
-      color: var(--gray-400);
-      margin-bottom: 64px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 64px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .arch-diagram {
-      max-width: 800px;
-      margin: 0 auto;
-      display: grid;
-      gap: 20px;
-      position: relative;
-      z-index: 2;
-    }
-
+    /* Stack Panel - Simplified Architecture */
     .arch-layer {
-      padding: 40px;
-      border: 1px solid var(--gray-600);
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--black) 0%, var(--gray-800) 100%);
-      text-align: center;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.4s ease forwards;
     }
 
-    .arch-layer::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-      transition: left 0.8s ease;
+    .arch-layer:nth-child(1) { animation-delay: 0.1s; }
+    .arch-layer:nth-child(2) { animation-delay: 0.3s; }
+    .arch-layer:nth-child(3) { animation-delay: 0.5s; }
+    .arch-layer:nth-child(4) { animation-delay: 0.7s; }
+
+    .layer-prefix {
+      color: var(--terminal-green);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 2px;
+      flex-shrink: 0;
     }
 
-    .arch-layer:hover {
-      border-color: var(--gray-400);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    .layer-content {
+      flex: 1;
     }
 
-    .arch-layer:hover::before {
-      left: 100%;
+    .layer-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--platinum);
+      margin-bottom: var(--space-xs);
+      line-height: 1.3;
     }
 
-    .arch-layer h3 {
-      font-size: 18px;
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-
-    .arch-layer p {
-      font-size: 15px;
-      color: var(--gray-400);
+    .layer-description {
+      font-size: 14px;
+      color: var(--silver);
       line-height: 1.5;
     }
 
-    /* CTA */
-    .cta {
-      padding: 160px 0;
-      text-align: center;
-      background: linear-gradient(135deg, var(--black) 0%, var(--gray-900) 50%, var(--black) 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: 
-        conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255, 255, 255, 0.02) 60deg, transparent 120deg, rgba(255, 255, 255, 0.02) 180deg, transparent 240deg, rgba(255, 255, 255, 0.02) 300deg, transparent 360deg);
-      animation: rotate 20s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .cta h2 {
-      font-size: 48px;
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      margin-bottom: 32px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .cta p {
-      font-size: 20px;
-      color: var(--gray-300);
-      margin-bottom: 48px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 48px;
-      line-height: 1.6;
-      position: relative;
-      z-index: 2;
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 24px;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 2;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 18px 36px;
-      background: var(--white);
-      color: var(--black);
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 500;
-      border-radius: 8px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
+    /* Full Site Overlay - Composite View */
+    .full-site {
+      position: fixed;
       top: 0;
-      left: -100%;
+      left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.6s ease;
+      background: var(--void);
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.6s ease;
+      overflow-y: auto;
     }
 
-    .btn:hover {
-      background: var(--gray-100);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(255, 255, 255, 0.1);
+    .full-site.active {
+      opacity: 1;
+      visibility: visible;
     }
 
-    .btn:hover::before {
-      left: 100%;
+    .composite-view {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: var(--space-4xl) var(--space-xl);
+      gap: var(--space-3xl);
     }
 
-    .btn-secondary {
-      background: transparent;
-      color: var(--white);
-      border: 1px solid var(--gray-600);
+    .composite-section {
+      max-width: 600px;
+      width: 100%;
     }
 
-    .btn-secondary:hover {
-      border-color: var(--white);
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    /* Footer */
-    footer {
-      padding: 80px 0;
-      border-top: 1px solid var(--gray-800);
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--aluminum);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-lg);
       text-align: center;
     }
 
-    .footer-content {
-      color: var(--gray-500);
+    .terminal-composite {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 14px;
+      line-height: 1.8;
+      background: var(--obsidian);
+      border: 1px solid var(--slate);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
     }
 
-    /* Responsive - Tablet/Laptop Landscape */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .hero h1 {
-        font-size: 64px;
-        line-height: 1;
-      }
-
-      .hero-subtitle {
-        font-size: 24px;
-      }
-
-      .hero-description {
-        font-size: 18px;
-      }
-
-      .hero-stats {
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 24px;
-      }
-
-      .terminal {
-        transform: scale(0.9);
-        transform-origin: top center;
-      }
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+      margin: var(--space-2xl) 0;
     }
 
-    /* Responsive - Mobile and Tablet */
-    @media (max-width: 968px) {
-      .features-grid {
-        grid-template-columns: 1fr;
-        gap: 48px;
-      }
-
-      .steps-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
+    .arch-composite {
+      padding: var(--space-xl) 0;
     }
 
+    .arch-layer-simple {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: slideUp 0.4s ease forwards;
+    }
+
+    .arch-layer-simple:nth-child(1) { animation-delay: 0.1s; }
+    .arch-layer-simple:nth-child(2) { animation-delay: 0.2s; }
+    .arch-layer-simple:nth-child(3) { animation-delay: 0.3s; }
+    .arch-layer-simple:nth-child(4) { animation-delay: 0.4s; }
+
+    .layer-content-simple {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .layer-title-simple {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--platinum);
+      line-height: 1.3;
+    }
+
+    .layer-desc-simple {
+      font-size: 14px;
+      color: var(--silver);
+      line-height: 1.5;
+    }
+
+    .close-btn {
+      position: fixed;
+      top: var(--space-lg);
+      right: var(--space-lg);
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      color: var(--silver);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .close-btn:hover {
+      color: var(--platinum);
+      border-color: var(--terminal-green);
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
-      .container {
-        padding: 0 32px;
+      .nav-shell {
+        top: 40%;
       }
 
-      .nav-links {
-        display: none;
+      .nav-shell.expanded {
+        top: var(--space-md);
       }
 
-      .hero {
-        padding-top: 120px;
-        padding-bottom: 80px;
+      .nav-core {
+        gap: var(--space-md);
+        padding: var(--space-xs) var(--space-md);
       }
 
-      .hero h1 {
-        font-size: 48px;
-        margin-bottom: 24px;
-        line-height: 1.1;
+      .logo-part {
+        padding: 4px 8px;
+        font-size: 10px;
       }
 
-      .hero-subtitle {
-        font-size: 24px;
-        margin-bottom: 24px;
-        line-height: 1.4;
+      .content-panel {
+        padding: var(--space-md);
+        margin: var(--space-md);
+        width: calc(100vw - 32px);
+        max-width: none;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+        top: 60px;
+        transform: translateX(-50%);
       }
 
-      .hero-description {
-        font-size: 16px;
-        margin-bottom: 48px;
-        line-height: 1.7;
+      .content-panel.active {
+        transform: translateX(-50%) scale(1);
       }
 
-      .hero-stats {
-        gap: 24px;
-        justify-content: space-between;
-        max-width: 100%;
-      }
-
-      .hero-stat {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .hero-stat-value {
-        font-size: 28px;
-      }
-
-      .hero-stat-label {
-        font-size: 12px;
-      }
-
-      .terminal {
-        margin: 48px 0;
-      }
-
-      .problem,
-      .how-it-works,
-      .features,
-      .architecture,
-      .cta {
-        padding: 120px 0;
-      }
-
-      .problem h2,
-      .how-it-works h2,
-      .features h2,
-      .architecture h2,
-      .cta h2 {
-        font-size: 36px;
-        margin-bottom: 32px;
-      }
-
-      .problem p {
-        font-size: 18px;
-        margin-bottom: 24px;
-      }
-
-      .problem-highlight {
-        margin: 32px 0;
-        padding: 24px;
-      }
-
-      .how-it-works-subtitle,
-      .architecture-subtitle {
-        font-size: 16px;
-        margin-bottom: 48px;
-      }
-
-      .cta p {
-        font-size: 18px;
-        margin-bottom: 40px;
-      }
-
-      .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-
-    /* Mobile - Small Screens */
-    @media (max-width: 480px) {
-      .hero h1 {
-        font-size: 36px;
-        line-height: 1.1;
-        margin-bottom: 16px;
-      }
-
-      .hero-subtitle {
-        font-size: 18px;
-        margin-bottom: 16px;
-      }
-
-      .hero-description {
+      .panel-preamble {
+        margin-bottom: var(--space-md);
         font-size: 14px;
-        margin-bottom: 32px;
-      }
-
-      .hero-stats {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .hero-stat-value {
-        font-size: 24px;
-      }
-
-      .hero-stat-label {
-        font-size: 11px;
       }
 
       .terminal-content {
-        padding: 20px 16px;
+        padding: var(--space-md);
         font-size: 12px;
+        line-height: 1.6;
       }
 
       .terminal-header {
-        padding: 12px 16px;
+        padding: var(--space-sm) var(--space-md);
       }
 
-      .output {
-        margin-left: 20px;
+      .terminal-title {
+        font-size: 10px;
+      }
+
+      .terminal-dots {
+        gap: var(--space-xs);
+      }
+
+      .terminal-dot {
+        width: 8px;
+        height: 8px;
+      }
+
+      .arch-layer {
+        margin-bottom: var(--space-md);
+        gap: var(--space-sm);
+      }
+
+      .layer-prefix {
+        font-size: 12px;
+      }
+
+      .layer-title {
+        font-size: 14px;
+        margin-bottom: 2px;
+      }
+
+      .layer-description {
+        font-size: 12px;
+      }
+
+      .panel-caption {
+        margin-top: var(--space-md);
+        padding-top: var(--space-md);
+      }
+
+      .panel-caption p {
+        font-size: 12px;
+      }
+
+      .cli-reference {
+        font-size: 10px;
+      }
+
+      .composite-view {
+        padding: var(--space-xl) var(--space-md);
+        gap: var(--space-xl);
+        min-height: 100vh;
+      }
+
+      .composite-section {
+        max-width: 100%;
+      }
+
+      .terminal-composite {
+        padding: var(--space-md);
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .section-label {
+        font-size: 10px;
+        margin-bottom: var(--space-md);
+      }
+
+      .arch-layer-simple {
+        margin-bottom: var(--space-md);
+        gap: var(--space-sm);
+      }
+
+      .layer-title-simple {
+        font-size: 14px;
+      }
+
+      .layer-desc-simple {
+        font-size: 12px;
+      }
+
+      .close-btn {
+        top: var(--space-md);
+        right: var(--space-md);
+        padding: var(--space-sm);
+      }
+    }
+
+    /* Tablet adjustments */
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .content-panel {
+        padding: var(--space-xl);
+        width: 85vw;
+        max-width: 500px;
+      }
+
+      .terminal-content {
+        font-size: 13px;
+      }
+
+      .composite-view {
+        padding: var(--space-3xl) var(--space-xl);
+      }
+    }
+
+    /* Small mobile devices */
+    @media (max-width: 480px) {
+      body {
+        font-size: 14px;
+      }
+
+      .nav-shell {
+        top: 35%;
+      }
+
+      .nav-core {
+        gap: var(--space-sm);
+        padding: var(--space-xs) var(--space-sm);
+      }
+
+      .logo-part {
+        padding: 3px 6px;
+        font-size: 9px;
+      }
+
+      .hamburger {
+        padding: var(--space-xs);
+      }
+
+      .hamburger-line {
+        width: 14px;
+        height: 1.5px;
+      }
+
+      .content-panel {
+        padding: var(--space-sm);
+        margin: var(--space-sm);
+        width: calc(100vw - 16px);
+        max-height: calc(100vh - 100px);
+        border-radius: var(--radius-md);
+      }
+
+      .panel-preamble {
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .terminal-content {
+        padding: var(--space-sm);
+        font-size: 11px;
+      }
+
+      .terminal-header {
+        padding: var(--space-xs) var(--space-sm);
+      }
+
+      .layer-title {
+        font-size: 13px;
+      }
+
+      .layer-description {
+        font-size: 11px;
+      }
+
+      .composite-view {
+        padding: var(--space-lg) var(--space-sm);
+        gap: var(--space-lg);
+      }
+
+      .terminal-composite {
+        padding: var(--space-sm);
         font-size: 11px;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    <nav class="container">
-      <div class="logo">Regolith</div>
-      <ul class="nav-links">
-        <li><a href="#architecture">Architecture</a></li>
-        <li><a href="#github">GitHub</a></li>
-      </ul>
-    </nav>
-  </header>
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
 
-  <main>
-    <section class="hero">
-      <div class="container">
-        <div class="hero-content">
-          <h1>Rails for Distributed Systems</h1>
-          <p class="hero-subtitle">Everything you love about Rails — no longer boxed in.</p>
-          <p class="hero-description">
-            Regolith is the missing foundation layer that lets Rails breathe at scale. Transparent service generation, cross-boundary associations, and familiar Rails commands — all working across a distributed system without the boilerplate.
-          </p>
-
-          <div class="hero-stats">
-            <div class="hero-stat">
-              <div class="hero-stat-value">Full</div>
-              <div class="hero-stat-label">Rails Apps</div>
-            </div>
-            <div class="hero-stat">
-              <div class="hero-stat-value">Zero</div>
-              <div class="hero-stat-label">Docker Setup</div>
-            </div>
-            <div class="hero-stat">
-              <div class="hero-stat-value">&infin;</div>
-              <div class="hero-stat-label">Rails Magic</div>
-            </div>
-          </div>
-
-          <div class="terminal">
-            <div class="terminal-header">
-              <div class="terminal-dot"></div>
-              <div class="terminal-dot"></div>
-              <div class="terminal-dot"></div>
-              <span style="margin-left: 12px;">~/regolith_demo</span>
-            </div>
-            <div class="terminal-content">
-              <div class="terminal-line"><span class="prompt">$</span><span class="command"> regolith new marketplace</span></div>
-              <div class="terminal-line"><span class="output success">✅ Created Regolith app 'marketplace'</span></div>
-              <div class="terminal-line"><span class="output">→ Next: cd marketplace && regolith generate service &lt;service_name&gt;</span></div>
-              <div class="terminal-line"><span class="prompt">$</span><span class="command"> cd marketplace</span></div>
-              <div class="terminal-line"><span class="prompt">$</span><span class="command"> regolith generate service products</span></div>
-              <div class="terminal-line"><span class="output">🔧 Creating service 'products'...</span></div>
-              <div class="terminal-line"><span class="output success">✅ Created service 'products'</span></div>
-              <div class="terminal-line"><span class="prompt">$</span><span class="command"> regolith generate service orders</span></div>
-              <div class="terminal-line"><span class="output success">✅ Created service 'orders'</span></div>
-              <div class="terminal-line"><span class="prompt">$</span><span class="command"> regolith server</span></div>
-              <div class="terminal-line"><span class="output">products_service running at http://localhost:3001</span></div>
-              <div class="terminal-line"><span class="output">orders_service running at http://localhost:3002</span></div>
-              <div class="terminal-line"><span class="prompt">$</span><span class="command"> regolith console products</span></div>
-              <div class="terminal-line"><span class="output">🧪 Opening Rails console for products_service...</span></div>
-              <div class="terminal-line"><span class="prompt">&gt;&gt;</span><span class="command"> Product.create!(name: "iPhone", price: 999)</span></div>
-              <div class="terminal-line"><span class="output success">=&gt; #&lt;Product id: 1, name: "iPhone", price: 999&gt;</span></div>
-            </div>
-          </div>
-        </div>
+  <div class="nav-shell" id="navShell">
+    <div class="nav-core" id="navCore">
+      <div class="logo-stack">
+        <div class="logo-part logo-rego" id="regoBtn">REGO</div>
+        <div class="logo-part logo-lith" id="lithBtn">LITH</div>
       </div>
-    </section>
-
-    <section class="problem">
-      <div class="container">
-        <div class="problem-content">
-          <h2>Rails Microservices Made Simple</h2>
-          <p>
-            Setting up Rails microservices means hours of manual configuration: generating individual Rails APIs, 
-            setting up Docker containers, configuring orchestration, and managing service discovery.
-          </p>
-          <p>
-            Regolith automates this entire workflow. Generate production-ready Rails services, 
-            fully containerized and orchestrated, in seconds instead of hours.
-          </p>
-        </div>
+      
+      <div class="hamburger" id="hamburger">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
       </div>
-    </section>
-
-    <section class="how-it-works">
-      <div class="container">
-        <h2>How Regolith Works</h2>
-        <p class="how-it-works-subtitle">
-          Three commands to production-ready microservices architecture.
-        </p>
-
-        <div class="steps-grid">
-          <div class="step">
-            <div class="step-number">01</div>
-            <h3>Initialize Platform</h3>
-            <p>Creates project structure with Docker orchestration, PostgreSQL configuration, and service registry.</p>
-            <div class="step-code">regolith new myapp</div>
-          </div>
-          <div class="step">
-            <div class="step-number">02</div>
-            <h3>Generate Services</h3>
-            <p>Scaffolds complete Rails API apps with Docker containers, CORS configuration, and automatic port assignment.</p>
-            <div class="step-code">regolith generate service users</div>
-          </div>
-          <div class="step">
-            <div class="step-number">03</div>
-            <h3>Deploy & Scale</h3>
-            <p>Starts all services with Docker Compose. Each service scales independently with production PostgreSQL.</p>
-            <div class="step-code">regolith server</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="features">
-      <div class="container">
-        <h2>Built for Production</h2>
-
-        <div class="features-grid">
-          <div class="feature">
-            <h3>Complete Rails APIs</h3>
-            <p>Each service is a full Rails 7 API application with PostgreSQL, CORS configuration, and production-ready structure.</p>
-            <div class="feature-detail">rails new --api with custom optimizations</div>
-          </div>
-          
-          <div class="feature">
-            <h3>Docker Orchestration</h3>
-            <p>Automatic Docker containerization with optimized Ruby 3.1 images, volume mounting, and multi-service networking.</p>
-            <div class="feature-detail">docker-compose.yml generation and management</div>
-          </div>
-          
-          <div class="feature">
-            <h3>Service Discovery</h3>
-            <p>Built-in service registry tracks all services with automatic port assignment and environment configuration.</p>
-            <div class="feature-detail">config/regolith.yml service coordination</div>
-          </div>
-          
-          <div class="feature">
-            <h3>Development Tools</h3>
-            <p>Rails console access per service, hot-reload development, and integrated debugging across the entire platform.</p>
-            <div class="feature-detail">regolith console &lt;service_name&gt;</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="architecture" id="architecture">
-      <div class="container">
-        <h2>Production Architecture</h2>
-        <p class="architecture-subtitle">
-          Enterprise-ready microservices platform with Rails at the core.
-        </p>
-        <div class="arch-diagram">
-          <div class="arch-layer">
-            <h3>Rails API Services</h3>
-            <p>Independent Rails 7 applications with PostgreSQL, optimized for API development and horizontal scaling</p>
-          </div>
-          <div class="arch-layer">
-            <h3>Docker Orchestration</h3>
-            <p>Containerized services with Docker Compose, automatic networking, and production-optimized configurations</p>
-          </div>
-          <div class="arch-layer">
-            <h3>Service Registry</h3>
-            <p>Centralized service configuration with automatic port management and environment synchronization</p>
-          </div>
-          <div class="arch-layer">
-            <h3>PostgreSQL Database</h3>
-            <p>Shared production database with per-service schema isolation and connection pooling</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta" id="github">
-      <div class="container">
-        <h2>Ready to rebuild Rails at scale?</h2>
-        <p>Join the early adopters using Regolith to cut through complexity, unify services, and keep Rails relevant in the distributed age.</p>
-        <div class="cta-buttons">
-          <a href="https://github.com/yourusername/regolith" class="btn">Get Regolith</a>
-          <a href="mailto:hello@regolith.dev" class="btn btn-secondary">Talk with Us</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <div class="footer-content">&copy; 2025 Regolith – Rails for Distributed Systems</div>
     </div>
-  </footer>
+  </div>
+
+  <!-- Terminal Panel -->
+  <div class="content-panel terminal-panel" id="terminalPanel">
+    <div class="panel-preamble">
+      <h2 style="font-size: 18px; font-weight: 700; color: var(--platinum); margin-bottom: var(--space-sm);">Rails for Distributed Systems</h2>
+      <p>Everything you love about Rails — no longer boxed in. Regolith is the missing foundation layer that lets Rails breathe at scale.</p>
+      <div style="display: flex; gap: var(--space-lg); margin: var(--space-md) 0; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--terminal-green);">
+        <span>Full Rails Apps</span>
+        <span>Zero Docker Setup</span>
+        <span>Infinite Rails Magic</span>
+      </div>
+    </div>
+    
+    <div class="terminal-header">
+      <div class="terminal-dots">
+        <div class="terminal-dot"></div>
+        <div class="terminal-dot"></div>
+        <div class="terminal-dot"></div>
+      </div>
+      <div class="terminal-title">~/regolith_demo</div>
+    </div>
+    <div class="terminal-content">
+      <div class="terminal-line">
+        <span class="prompt">$</span>
+        <span class="command"> gem install regolith</span>
+      </div>
+      <div class="terminal-line">
+        <span class="output output-success">✓ Installation complete</span>
+      </div>
+      <div class="terminal-line">
+        <span class="prompt">$</span>
+        <span class="command"> regolith new marketplace</span>
+      </div>
+      <div class="terminal-line">
+        <span class="output output-success">✓ Created Regolith app 'marketplace'</span>
+      </div>
+      <div class="terminal-line">
+        <span class="output output-info">→ Next: cd marketplace && regolith generate service &lt;service_name&gt;</span>
+      </div>
+      <div class="terminal-line">
+        <span class="prompt">$</span>
+        <span class="command"> cd marketplace</span>
+      </div>
+      <div class="terminal-line">
+        <span class="prompt">$</span>
+        <span class="command"> regolith generate service products</span>
+      </div>
+      <div class="terminal-line">
+        <span class="output output-warning">→ Creating service 'products'...</span>
+      </div>
+      <div class="terminal-line">
+        <span class="output output-success">✓ Created service 'products'</span>
+      </div>
+      <div class="terminal-line">
+        <span class="prompt">$</span>
+        <span class="command"> regolith server</span>
+      </div>
+      <div class="terminal-line">
+        <span class="output output-info">→ products_service running at http://localhost:3001</span>
+      </div>
+    </div>
+    
+    <div class="panel-caption">
+      <p>Transparent service generation, cross-boundary associations, and familiar Rails commands — all working across a distributed system without the boilerplate.</p>
+      <a class="cli-reference" id="showCliRef">View CLI reference →</a>
+    </div>
+  </div>
+
+  <!-- Stack Panel -->
+  <div class="content-panel" id="stackPanel">
+    <div style="margin-bottom: var(--space-lg);">
+      <h3 style="font-size: 16px; font-weight: 700; color: var(--platinum); margin-bottom: var(--space-sm);">Enterprise-ready microservices platform</h3>
+      <p style="font-size: 14px; color: var(--silver); line-height: 1.5;">Rails at the core, designed for scale and reliability.</p>
+    </div>
+    
+    <div class="arch-layer">
+      <div class="layer-prefix">→</div>
+      <div class="layer-content">
+        <h3 class="layer-title">Rails API Services</h3>
+        <p class="layer-description">Independent Rails 7 applications with PostgreSQL, optimized for API development and horizontal scaling.</p>
+      </div>
+    </div>
+    
+    <div class="arch-layer">
+      <div class="layer-prefix">→</div>
+      <div class="layer-content">
+        <h3 class="layer-title">Docker Orchestration</h3>
+        <p class="layer-description">Containerized services with Docker Compose, automatic networking, and production-optimized configurations.</p>
+      </div>
+    </div>
+    
+    <div class="arch-layer">
+      <div class="layer-prefix">→</div>
+      <div class="layer-content">
+        <h3 class="layer-title">Service Registry</h3>
+        <p class="layer-description">Centralized service configuration with automatic port management and environment synchronization.</p>
+      </div>
+    </div>
+    
+    <div class="arch-layer">
+      <div class="layer-prefix">→</div>
+      <div class="layer-content">
+        <h3 class="layer-title">PostgreSQL Foundation</h3>
+        <p class="layer-description">Shared production database with per-service schema isolation and connection pooling.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLI Reference Panel -->
+  <div class="content-panel cli-panel" id="cliPanel">
+    <div style="margin-bottom: var(--space-xl);">
+      <h2 style="font-size: 18px; font-weight: 700; color: var(--platinum); margin-bottom: var(--space-sm);">CLI Reference</h2>
+      <p style="font-size: 14px; color: var(--silver); line-height: 1.5;">Complete command reference for building Rails microservices.</p>
+    </div>
+
+    <div class="cli-section">
+      <div class="cli-section-title">Core Commands</div>
+      
+      <div class="cli-command">
+        <div class="cli-command-header">regolith new</div>
+        <div class="cli-command-usage">regolith new &lt;app_name&gt;</div>
+        <div class="cli-command-desc">Create a new Regolith application with PostgreSQL, Docker orchestration, and service registry.</div>
+        <div class="cli-command-example">Example: regolith new marketplace</div>
+      </div>
+
+      <div class="cli-command">
+        <div class="cli-command-header">regolith generate service</div>
+        <div class="cli-command-usage">regolith generate service &lt;service_name&gt;</div>
+        <div class="cli-command-desc">Generate a complete Rails API service with Docker container, CORS configuration, and automatic port assignment.</div>
+        <div class="cli-command-example">Example: regolith generate service products</div>
+      </div>
+
+      <div class="cli-command">
+        <div class="cli-command-header">regolith server</div>
+        <div class="cli-command-usage">regolith server</div>
+        <div class="cli-command-desc">Start all services with Docker Compose. Each service scales independently with production PostgreSQL.</div>
+        <div class="cli-command-example">Starts all services defined in config/regolith.yml</div>
+      </div>
+
+      <div class="cli-command">
+        <div class="cli-command-header">regolith console</div>
+        <div class="cli-command-usage">regolith console &lt;service_name&gt;</div>
+        <div class="cli-command-desc">Open Rails console for a specific service with full Rails environment and database access.</div>
+        <div class="cli-command-example">Example: regolith console products</div>
+      </div>
+    </div>
+
+    <div class="cli-workflow">
+      <div class="cli-workflow-title">Getting Started Workflow</div>
+      <div class="cli-workflow-step">
+        <span class="cli-workflow-number">1.</span>
+        <span class="cli-workflow-command">regolith new myapp</span>
+      </div>
+      <div class="cli-workflow-step">
+        <span class="cli-workflow-number">2.</span>
+        <span class="cli-workflow-command">cd myapp</span>
+      </div>
+      <div class="cli-workflow-step">
+        <span class="cli-workflow-number">3.</span>
+        <span class="cli-workflow-command">regolith generate service users</span>
+      </div>
+      <div class="cli-workflow-step">
+        <span class="cli-workflow-number">4.</span>
+        <span class="cli-workflow-command">regolith generate service products</span>
+      </div>
+      <div class="cli-workflow-step">
+        <span class="cli-workflow-number">5.</span>
+        <span class="cli-workflow-command">regolith server</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full Site -->
+  <div class="full-site" id="fullSite">
+    <div class="close-btn" id="closeBtn">✕</div>
+    <div class="composite-view">
+      <!-- About Section -->
+      <div class="composite-section">
+        <div class="section-label">ABOUT</div>
+        <div style="text-align: center; margin-bottom: var(--space-xl);">
+          <h1 style="font-size: 24px; font-weight: 800; color: var(--platinum); margin-bottom: var(--space-sm);">Rails for Distributed Systems</h1>
+          <p style="font-size: 16px; color: var(--silver); line-height: 1.6; max-width: 500px; margin: 0 auto;">Everything you love about Rails — no longer boxed in. Regolith automates the entire microservices workflow, generating production-ready Rails services in seconds instead of hours.</p>
+        </div>
+      </div>
+
+      <!-- Terminal Section -->
+      <div class="composite-section">
+        <div class="section-label">FORMATION</div>
+        <div class="terminal-composite">
+          <div class="terminal-line">
+            <span class="prompt">$</span>
+            <span class="command"> regolith new marketplace</span>
+          </div>
+          <div class="terminal-line">
+            <span class="output output-success">✓ Created Regolith app 'marketplace'</span>
+          </div>
+          <div class="terminal-line">
+            <span class="prompt">$</span>
+            <span class="command"> regolith generate service products</span>
+          </div>
+          <div class="terminal-line">
+            <span class="output output-success">✓ Created service 'products'</span>
+          </div>
+          <div class="terminal-line">
+            <span class="prompt">$</span>
+            <span class="command"> regolith generate service orders</span>
+          </div>
+          <div class="terminal-line">
+            <span class="output output-success">✓ Created service 'orders'</span>
+          </div>
+          <div class="terminal-line">
+            <span class="prompt">$</span>
+            <span class="command"> regolith server</span>
+          </div>
+          <div class="terminal-line">
+            <span class="output output-info">→ products_service running at http://localhost:3001</span>
+          </div>
+          <div class="terminal-line">
+            <span class="output output-info">→ orders_service running at http://localhost:3002</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="section-divider"></div>
+
+      <!-- Architecture Section -->
+      <div class="composite-section">
+        <div class="section-label">ARCHITECTURE</div>
+        <div class="arch-composite">
+          <div class="arch-layer-simple">
+            <div class="layer-prefix">→</div>
+            <div class="layer-content-simple">
+              <span class="layer-title-simple">Rails API Services</span>
+              <span class="layer-desc-simple">Independent Rails 7 applications with PostgreSQL, optimized for API development and horizontal scaling.</span>
+            </div>
+          </div>
+          
+          <div class="arch-layer-simple">
+            <div class="layer-prefix">→</div>
+            <div class="layer-content-simple">
+              <span class="layer-title-simple">Docker Orchestration</span>
+              <span class="layer-desc-simple">Containerized services with Docker Compose, automatic networking, and production-optimized configurations.</span>
+            </div>
+          </div>
+          
+          <div class="arch-layer-simple">
+            <div class="layer-prefix">→</div>
+            <div class="layer-content-simple">
+              <span class="layer-title-simple">Service Registry</span>
+              <span class="layer-desc-simple">Centralized service configuration with automatic port management and environment synchronization.</span>
+            </div>
+          </div>
+          
+          <div class="arch-layer-simple">
+            <div class="layer-prefix">→</div>
+            <div class="layer-content-simple">
+              <span class="layer-title-simple">PostgreSQL Foundation</span>
+              <span class="layer-desc-simple">Shared production database with per-service schema isolation and connection pooling.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="composite-section" style="text-align: center; margin-top: var(--space-3xl);">
+        <div class="section-label">CONNECT</div>
+        <div style="display: flex; gap: var(--space-xl); justify-content: center; flex-wrap: wrap; margin-top: var(--space-lg);">
+          <a href="mailto:info@regolith.bio" style="color: var(--silver); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: var(--space-md) var(--space-lg); border: 1px solid var(--glass-border); border-radius: var(--radius-md); transition: all 0.2s ease;" onmouseover="this.style.color='var(--terminal-green)'; this.style.borderColor='var(--terminal-green)'" onmouseout="this.style.color='var(--silver)'; this.style.borderColor='var(--glass-border)'">Request Access →</a>
+        </div>
+        
+        <!-- Footer Logo -->
+        <div style="margin-top: var(--space-3xl); display: flex; flex-direction: column; align-items: center; gap: var(--space-md);">
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <div style="background: var(--glass); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 6px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--platinum);">REGO</div>
+            <div style="background: var(--graphite); border: 1px solid var(--steel); border-radius: var(--radius-sm); padding: 6px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--silver);">LITH</div>
+          </div>
+          <p style="margin-top: var(--space-md); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--steel);">© 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
+    const navShell = document.getElementById('navShell');
+    const navCore = document.getElementById('navCore');
+    const regoBtn = document.getElementById('regoBtn');
+    const lithBtn = document.getElementById('lithBtn');
+    const hamburger = document.getElementById('hamburger');
+    const terminalPanel = document.getElementById('terminalPanel');
+    const stackPanel = document.getElementById('stackPanel');
+    const cliPanel = document.getElementById('cliPanel');
+    const fullSite = document.getElementById('fullSite');
+    const closeBtn = document.getElementById('closeBtn');
+
+    // Comprehensive debugging
+    console.log('All elements:', {
+      navShell,
+      navCore,
+      regoBtn,
+      lithBtn,
+      hamburger,
+      terminalPanel,
+      stackPanel,
+      cliPanel,
+      fullSite,
+      closeBtn
     });
 
-    // Header background on scroll
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('header');
-      if (window.scrollY > 100) {
-        header.style.background = 'rgba(0, 0, 0, 0.98)';
-      } else {
-        header.style.background = 'rgba(0, 0, 0, 0.95)';
+    let currentPanel = null;
+
+    function closeAllPanels() {
+      console.log('Closing all panels');
+      if (terminalPanel) {
+        terminalPanel.classList.remove('active');
+        console.log('Removed active from terminalPanel');
+      }
+      if (stackPanel) {
+        stackPanel.classList.remove('active');
+        console.log('Removed active from stackPanel');
+      }
+      if (cliPanel) {
+        cliPanel.classList.remove('active');
+        console.log('Removed active from cliPanel');
+      }
+      if (fullSite) fullSite.classList.remove('active');
+      if (regoBtn) regoBtn.classList.remove('active');
+      if (lithBtn) lithBtn.classList.remove('active');
+      if (hamburger) hamburger.classList.remove('active');
+      if (navCore) navCore.classList.remove('active');
+      if (navShell) navShell.classList.remove('expanded');
+      currentPanel = null;
+    }
+
+    function showPanel(panel, button) {
+      console.log('showPanel called with:', { panel, button, currentPanel });
+      
+      if (!panel) {
+        console.error('Panel is null or undefined');
+        return;
+      }
+      
+      if (currentPanel === panel) {
+        console.log('Same panel clicked, closing');
+        closeAllPanels();
+        return;
+      }
+
+      closeAllPanels();
+      
+      setTimeout(() => {
+        console.log('Adding active class to panel:', panel);
+        if (panel) panel.classList.add('active');
+        if (button) button.classList.add('active');
+        if (navCore) navCore.classList.add('active');
+        if (navShell) navShell.classList.add('expanded');
+        currentPanel = panel;
+        console.log('Panel should now be visible');
+      }, 100);
+    }
+
+    // Add event listeners only if elements exist
+    if (regoBtn) {
+      regoBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('REGO clicked, terminalPanel:', terminalPanel);
+        showPanel(terminalPanel, regoBtn);
+      });
+      console.log('REGO event listener added');
+    } else {
+      console.error('regoBtn not found');
+    }
+
+    if (lithBtn) {
+      lithBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('LITH clicked, stackPanel:', stackPanel);
+        showPanel(stackPanel, lithBtn);
+      });
+      console.log('LITH event listener added');
+    } else {
+      console.error('lithBtn not found');
+    }
+
+    // Handle CLI reference link with event delegation
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.id === 'showCliRef') {
+        e.preventDefault();
+        showPanel(cliPanel);
       }
     });
 
-    // Intersection Observer for scroll animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -10% 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          if (entry.target.classList.contains('feature')) {
-            entry.target.classList.add('animate');
-          }
-          if (entry.target.classList.contains('step')) {
-            entry.target.classList.add('animate');
-          }
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        if (currentPanel === fullSite) {
+          closeAllPanels();
+          return;
         }
-      });
-    }, observerOptions);
 
-    // Observe elements for animation
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.feature, .step').forEach(el => {
-        observer.observe(el);
+        closeAllPanels();
+        
+        setTimeout(() => {
+          if (fullSite) fullSite.classList.add('active');
+          if (hamburger) hamburger.classList.add('active');
+          currentPanel = fullSite;
+        }, 100);
       });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeAllPanels);
+    }
+
+    // Close panels when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navShell || !terminalPanel || !stackPanel || !cliPanel || !fullSite) return;
+      
+      if (!navShell.contains(e.target) && 
+          !terminalPanel.contains(e.target) && 
+          !stackPanel.contains(e.target) &&
+          !cliPanel.contains(e.target) &&
+          !fullSite.contains(e.target)) {
+        closeAllPanels();
+      }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAllPanels();
+      }
+      if (e.key === 'r' && e.metaKey) {
+        e.preventDefault();
+        showPanel(terminalPanel, regoBtn);
+      }
+      if (e.key === 'l' && e.metaKey) {
+        e.preventDefault();
+        showPanel(stackPanel, lithBtn);
+      }
+      if (e.key === 'c' && e.metaKey && e.shiftKey) {
+        e.preventDefault();
+        showPanel(cliPanel);
+      }
     });
   </script>
 </body>
