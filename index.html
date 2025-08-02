@@ -290,6 +290,8 @@
       text-decoration: none;
       transition: color 0.2s ease;
       cursor: pointer;
+      display: inline-block;
+      padding: var(--space-xs) 0;
     }
 
     .cli-reference:hover {
@@ -1260,11 +1262,32 @@
       });
     }
 
-    // Handle CLI reference link with event delegation
+    // Handle CLI reference link with event delegation and debugging
     document.addEventListener('click', (e) => {
+      console.log('Click detected on:', e.target);
+      console.log('Target ID:', e.target.id);
+      console.log('Target classes:', e.target.classList);
+      
       if (e.target && (e.target.id === 'showCliRef' || e.target.classList.contains('cli-reference'))) {
         e.preventDefault();
+        e.stopPropagation();
+        console.log('CLI reference clicked! Opening panel...');
+        console.log('cliPanel exists:', !!cliPanel);
         showPanel(cliPanel, null);
+      }
+    });
+
+    // Alternative direct click handler as backup
+    document.addEventListener('DOMContentLoaded', () => {
+      const cliLink = document.getElementById('showCliRef');
+      if (cliLink) {
+        cliLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Direct CLI link clicked!');
+          showPanel(cliPanel, null);
+        });
+        console.log('Direct CLI link handler attached');
       }
     });
 
