@@ -101,8 +101,16 @@
     }
 
     .nav-shell.expanded {
-      top: var(--space-lg);
+      top: calc(var(--space-xl) + var(--space-lg));
       transform: translate(-50%, 0);
+    }
+
+    .nav-shell.docked {
+      top: var(--space-md);
+      left: var(--space-md);
+      transform: none;
+      transition: all 0.5s ease;
+      z-index: 100;
     }
 
     .nav-core {
@@ -233,6 +241,7 @@
       visibility: hidden;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 50;
+      margin-top: var(--space-xl);
     }
 
     .content-panel.active {
@@ -631,8 +640,11 @@
         top: 40%;
       }
 
-      .nav-shell.expanded {
-        top: var(--space-md);
+      .nav-shell.docked {
+        top: auto;
+        bottom: var(--space-md);
+        left: auto;
+        right: var(--space-md);
       }
 
       .nav-core {
@@ -654,6 +666,7 @@
         overflow-y: auto;
         top: 60px;
         transform: translateX(-50%);
+        margin-top: 0;
       }
 
       .content-panel.active {
@@ -1201,7 +1214,7 @@
       if (lithBtn) lithBtn.classList.remove('active');
       if (hamburger) hamburger.classList.remove('active');
       if (navCore) navCore.classList.remove('active');
-      if (navShell) navShell.classList.remove('expanded');
+      if (navShell) navShell.classList.remove('expanded', 'docked');
       currentPanel = null;
     }
 
@@ -1226,7 +1239,7 @@
         if (panel) panel.classList.add('active');
         if (button) button.classList.add('active');
         if (navCore) navCore.classList.add('active');
-        if (navShell) navShell.classList.add('expanded');
+        if (navShell) navShell.classList.add('expanded', 'docked');
         currentPanel = panel;
         console.log('Panel should now be visible');
       }, 100);
@@ -1257,8 +1270,9 @@
 
     // Handle CLI reference link with event delegation
     document.addEventListener('click', (e) => {
-      if (e.target && e.target.id === 'showCliRef') {
+      if (e.target && (e.target.id === 'showCliRef' || e.target.classList.contains('cli-reference'))) {
         e.preventDefault();
+        console.log('CLI reference clicked');
         showPanel(cliPanel);
       }
     });
