@@ -234,12 +234,11 @@
       backdrop-filter: blur(20px) saturate(180%);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-xl);
-      padding: var(--space-lg);
       max-width: 600px;
       width: 90vw;
-      max-height: 80vh;
-      overflow-y: scroll;
-      overflow-x: hidden;
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
       opacity: 0;
       visibility: hidden;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -254,6 +253,14 @@
 
     .content-panel.hidden {
       transform: translate(-50%, -50%) scale(0.95);
+    }
+
+    /* Scrollable content area inside panels */
+    .panel-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: var(--space-xl);
     }
 
     /* Panel Content */
@@ -893,68 +900,70 @@
 
   <!-- Terminal Panel -->
   <div class="content-panel terminal-panel" id="terminalPanel">
-    <div class="panel-preamble">
-      <h2 style="font-size: 18px; font-weight: 700; color: var(--platinum); margin-bottom: var(--space-sm);">Rails for Distributed Systems</h2>
-      <p>Everything you love about Rails — no longer boxed in. Regolith is the missing foundation layer that lets Rails breathe at scale.</p>
-      <div style="display: flex; gap: var(--space-lg); margin: var(--space-md) 0; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--terminal-green);">
-        <span>Full Rails Apps</span>
-        <span>Zero Docker Setup</span>
-        <span>Infinite Rails Magic</span>
+    <div class="panel-content">
+      <div class="panel-preamble">
+        <h2 style="font-size: 18px; font-weight: 700; color: var(--platinum); margin-bottom: var(--space-sm);">Rails for Distributed Systems</h2>
+        <p>Everything you love about Rails — no longer boxed in. Regolith is the missing foundation layer that lets Rails breathe at scale.</p>
+        <div style="display: flex; gap: var(--space-lg); margin: var(--space-md) 0; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--terminal-green);">
+          <span>Full Rails Apps</span>
+          <span>Zero Docker Setup</span>
+          <span>Infinite Rails Magic</span>
+        </div>
       </div>
-    </div>
-    
-    <div class="terminal-header">
-      <div class="terminal-dots">
-        <div class="terminal-dot"></div>
-        <div class="terminal-dot"></div>
-        <div class="terminal-dot"></div>
+      
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot"></div>
+        </div>
+        <div class="terminal-title">~/regolith_demo</div>
       </div>
-      <div class="terminal-title">~/regolith_demo</div>
-    </div>
-    <div class="terminal-content">
-      <div class="terminal-line">
-        <span class="prompt">$</span>
-        <span class="command"> gem install regolith</span>
+      <div class="terminal-content">
+        <div class="terminal-line">
+          <span class="prompt">$</span>
+          <span class="command"> gem install regolith</span>
+        </div>
+        <div class="terminal-line">
+          <span class="output output-success">✓ Installation complete</span>
+        </div>
+        <div class="terminal-line">
+          <span class="prompt">$</span>
+          <span class="command"> regolith new marketplace</span>
+        </div>
+        <div class="terminal-line">
+          <span class="output output-success">✓ Created Regolith app 'marketplace'</span>
+        </div>
+        <div class="terminal-line">
+          <span class="output output-info">→ Next: cd marketplace && regolith generate service &lt;service_name&gt;</span>
+        </div>
+        <div class="terminal-line">
+          <span class="prompt">$</span>
+          <span class="command"> cd marketplace</span>
+        </div>
+        <div class="terminal-line">
+          <span class="prompt">$</span>
+          <span class="command"> regolith generate service products</span>
+        </div>
+        <div class="terminal-line">
+          <span class="output output-warning">→ Creating service 'products'...</span>
+        </div>
+        <div class="terminal-line">
+          <span class="output output-success">✓ Created service 'products'</span>
+        </div>
+        <div class="terminal-line">
+          <span class="prompt">$</span>
+          <span class="command"> regolith server</span>
+        </div>
+        <div class="terminal-line">
+          <span class="output output-info">→ products_service running at http://localhost:3001</span>
+        </div>
       </div>
-      <div class="terminal-line">
-        <span class="output output-success">✓ Installation complete</span>
+      
+      <div class="panel-caption">
+        <p>Transparent service generation, cross-boundary associations, and familiar Rails commands — all working across a distributed system without the boilerplate.</p>
+        <a class="cli-reference" id="showCliRef">View CLI reference →</a>
       </div>
-      <div class="terminal-line">
-        <span class="prompt">$</span>
-        <span class="command"> regolith new marketplace</span>
-      </div>
-      <div class="terminal-line">
-        <span class="output output-success">✓ Created Regolith app 'marketplace'</span>
-      </div>
-      <div class="terminal-line">
-        <span class="output output-info">→ Next: cd marketplace && regolith generate service &lt;service_name&gt;</span>
-      </div>
-      <div class="terminal-line">
-        <span class="prompt">$</span>
-        <span class="command"> cd marketplace</span>
-      </div>
-      <div class="terminal-line">
-        <span class="prompt">$</span>
-        <span class="command"> regolith generate service products</span>
-      </div>
-      <div class="terminal-line">
-        <span class="output output-warning">→ Creating service 'products'...</span>
-      </div>
-      <div class="terminal-line">
-        <span class="output output-success">✓ Created service 'products'</span>
-      </div>
-      <div class="terminal-line">
-        <span class="prompt">$</span>
-        <span class="command"> regolith server</span>
-      </div>
-      <div class="terminal-line">
-        <span class="output output-info">→ products_service running at http://localhost:3001</span>
-      </div>
-    </div>
-    
-    <div class="panel-caption">
-      <p>Transparent service generation, cross-boundary associations, and familiar Rails commands — all working across a distributed system without the boilerplate.</p>
-      <a class="cli-reference" id="showCliRef">View CLI reference →</a>
     </div>
   </div>
 
