@@ -1272,8 +1272,8 @@
     document.addEventListener('click', (e) => {
       if (e.target && (e.target.id === 'showCliRef' || e.target.classList.contains('cli-reference'))) {
         e.preventDefault();
-        console.log('CLI reference clicked');
-        showPanel(cliPanel);
+        console.log('CLI reference clicked, cliPanel:', cliPanel);
+        showPanel(cliPanel, null);
       }
     });
 
