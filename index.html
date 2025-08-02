@@ -269,7 +269,7 @@
       overflow-y: auto;
       overflow-x: hidden;
       padding: var(--space-xl);
-      padding-bottom: var(--space-2xl);
+      padding-bottom: calc(var(--space-2xl) + 96px);
       scroll-behavior: smooth;
     }
 
@@ -414,6 +414,10 @@
       border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    .terminal-panel .panel-content {
+      padding-bottom: calc(var(--space-2xl) + 96px);
     }
 
     .terminal-header {
@@ -678,6 +682,11 @@
         right: var(--space-lg);
       }
 
+      .nav-shell.docked .nav-core {
+        margin-bottom: var(--space-xl);
+        margin-right: var(--space-xl);
+      }
+
       .nav-core {
         gap: var(--space-md);
         padding: var(--space-xs) var(--space-md);
@@ -686,6 +695,13 @@
       .logo-part {
         padding: 4px 8px;
         font-size: 10px;
+      }
+
+      .logo-part:hover {
+        background: var(--glass-hover);
+        border-color: var(--terminal-green);
+        color: var(--terminal-green);
+        box-shadow: none;
       }
 
       .content-panel {
@@ -832,6 +848,16 @@
         top: 35%;
       }
 
+      .nav-shell.docked {
+        bottom: var(--space-md);
+        right: var(--space-md);
+      }
+
+      .nav-shell.docked .nav-core {
+        margin-bottom: var(--space-lg);
+        margin-right: var(--space-lg);
+      }
+
       .nav-core {
         gap: var(--space-sm);
         padding: var(--space-xs) var(--space-sm);
@@ -924,7 +950,7 @@
     <div class="panel-content">
       <div class="panel-preamble" style="margin-bottom: var(--space-lg);">
         <h2 style="font-size: 18px; font-weight: 700; color: var(--platinum); margin-bottom: var(--space-sm);">Rails for Distributed Systems</h2>
-        <p>Everything you love about Rails — scaled out.</p>
+        <p>Rails microservices without boilerplate.</p>
       </div>
       
       <div class="terminal-header">
@@ -987,7 +1013,7 @@
     <div class="panel-content">
       <div style="margin-bottom: var(--space-lg);">
         <h3 style="font-size: 16px; font-weight: 700; color: var(--platinum); margin-bottom: var(--space-sm);">Enterprise-ready microservices platform</h3>
-        <p style="font-size: 14px; color: var(--silver); line-height: 1.5;">Rails at the core, designed for scale and reliability.</p>
+        <p style="font-size: 14px; color: var(--silver); line-height: 1.5;">Docker, PostgreSQL, CI/CD—prewired.</p>
       </div>
       
       <div class="arch-layer">
@@ -1099,7 +1125,7 @@
         <div class="section-label">ABOUT</div>
         <div style="text-align: center; margin-bottom: var(--space-xl);">
           <h1 style="font-size: 24px; font-weight: 800; color: var(--platinum); margin-bottom: var(--space-sm);">Rails for Distributed Systems</h1>
-          <p style="font-size: 16px; color: var(--silver); line-height: 1.6; max-width: 500px; margin: 0 auto;">Everything you love about Rails — scaled out. Regolith automates the entire microservices workflow, generating production-ready Rails services in seconds instead of hours.</p>
+          <p style="font-size: 16px; color: var(--silver); line-height: 1.6; max-width: 500px; margin: 0 auto;">Rails microservices without boilerplate. Regolith automates the entire microservices workflow, generating production-ready Rails services in seconds instead of hours.</p>
         </div>
       </div>
 
@@ -1186,7 +1212,7 @@
       <div class="composite-section" style="text-align: center; margin-top: var(--space-3xl);">
         <div class="section-label">CONNECT</div>
         <div style="display: flex; gap: var(--space-xl); justify-content: center; flex-wrap: wrap; margin-top: var(--space-lg);">
-          <a href="https://rubygems.org/gems/regolith" style="background: var(--terminal-green); color: var(--void); border: none; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; padding: var(--space-md) var(--space-lg); border-radius: var(--radius-md); transition: all 0.2s ease;" onmouseover="this.style.background='#00cc66'" onmouseout="this.style.background='var(--terminal-green)'">Get Regolith →</a>
+          <a href="https://rubygems.org/gems/regolith" style="background: var(--terminal-green); color: var(--void); border: none; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; padding: var(--space-md) var(--space-lg); border-radius: var(--radius-md); transition: all 0.2s ease;" onmouseover="this.style.background='#00cc66'" onmouseout="this.style.background='var(--terminal-green)'">Install Regolith →</a>
         </div>
         
         <!-- Footer Logo -->
