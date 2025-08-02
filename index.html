@@ -234,17 +234,16 @@
       backdrop-filter: blur(20px) saturate(180%);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-xl);
-      padding: var(--space-2xl);
+      padding: var(--space-lg);
       max-width: 600px;
       width: 90vw;
-      max-height: 85vh;
-      overflow-y: auto;
-      padding-bottom: 120px;
+      max-height: 80vh;
+      overflow-y: scroll;
+      overflow-x: hidden;
       opacity: 0;
       visibility: hidden;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 50;
-      margin-top: var(--space-xl);
     }
 
     .content-panel.active {
