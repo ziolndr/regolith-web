@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google" content="notranslate" />
   <title>Regolith – Infrastructure that flows</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
@@ -237,7 +236,7 @@
       border-radius: var(--radius-xl);
       max-width: 600px;
       width: 90vw;
-      max-height: 75vh;
+      max-height: 80vh;
       min-height: 400px;
       display: flex;
       flex-direction: column;
@@ -298,13 +297,6 @@
 
     .cli-reference:hover {
       color: var(--terminal-green);
-    }
-
-    /* Panel Caption Text - hide on very small screens */
-    @media (max-width: 480px) {
-      .panel-caption-text {
-        display: none;
-      }
     }
 
     /* CLI Reference Panel */
@@ -666,9 +658,9 @@
 
       .nav-shell.docked {
         top: auto;
-        bottom: var(--space-2xl);
+        bottom: var(--space-md);
         left: auto;
-        right: var(--space-2xl);
+        right: var(--space-md);
       }
 
       .nav-core {
@@ -826,17 +818,12 @@
 
       .nav-core {
         gap: var(--space-sm);
-        padding: var(--space-xs);
-      }
-
-      .nav-shell.docked {
-        bottom: var(--space-2xl);
-        right: var(--space-md);
+        padding: var(--space-xs) var(--space-sm);
       }
 
       .logo-part {
-        padding: 4px 8px;
-        font-size: 10px;
+        padding: 3px 6px;
+        font-size: 9px;
       }
 
       .hamburger {
@@ -864,7 +851,6 @@
       .terminal-content {
         padding: var(--space-sm);
         font-size: 11px;
-        margin-bottom: var(--space-xl);
       }
 
       .terminal-header {
@@ -887,10 +873,6 @@
       .terminal-composite {
         padding: var(--space-sm);
         font-size: 11px;
-      }
-
-      .panel-caption p {
-        display: none;
       }
     }
   </style>
@@ -977,7 +959,7 @@
       </div>
       
       <div class="panel-caption" style="margin-top: var(--space-sm);">
-        <p class="panel-caption-text" style="margin-bottom: var(--space-xs);">Familiar Rails commands, now working across a distributed system — no boilerplate.</p>
+        <p style="margin-bottom: var(--space-xs);">Transparent service generation, cross-boundary associations, and familiar Rails commands — all working across a distributed system without the boilerplate.</p>
         <a class="cli-reference" id="showCliRef">View CLI reference →</a>
       </div>
     </div>
