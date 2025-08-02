@@ -826,13 +826,17 @@
 
       .nav-core {
         gap: var(--space-sm);
-        padding: var(--space-xs) var(--space-sm);
-        transform: scale(1.05);
+        padding: var(--space-xs);
+      }
+
+      .nav-shell.docked {
+        bottom: var(--space-2xl);
+        right: var(--space-md);
       }
 
       .logo-part {
-        padding: 8px 14px;
-        font-size: 12px;
+        padding: 4px 8px;
+        font-size: 10px;
       }
 
       .hamburger {
@@ -860,6 +864,7 @@
       .terminal-content {
         padding: var(--space-sm);
         font-size: 11px;
+        margin-bottom: var(--space-xl);
       }
 
       .terminal-header {
@@ -882,6 +887,10 @@
       .terminal-composite {
         padding: var(--space-sm);
         font-size: 11px;
+      }
+
+      .panel-caption p {
+        display: none;
       }
     }
   </style>
