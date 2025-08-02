@@ -1011,64 +1011,66 @@
 
   <!-- CLI Reference Panel -->
   <div class="content-panel cli-panel" id="cliPanel">
-    <div style="margin-bottom: var(--space-xl);">
-      <h2 style="font-size: 18px; font-weight: 700; color: var(--platinum); margin-bottom: var(--space-sm);">CLI Reference</h2>
-      <p style="font-size: 14px; color: var(--silver); line-height: 1.5;">Complete command reference for building Rails microservices.</p>
-    </div>
-
-    <div class="cli-section">
-      <div class="cli-section-title">Core Commands</div>
-      
-      <div class="cli-command">
-        <div class="cli-command-header">regolith new</div>
-        <div class="cli-command-usage">regolith new &lt;app_name&gt;</div>
-        <div class="cli-command-desc">Create a new Regolith application with PostgreSQL, Docker orchestration, and service registry.</div>
-        <div class="cli-command-example">Example: regolith new marketplace</div>
+    <div class="panel-content">
+      <div style="margin-bottom: var(--space-xl);">
+        <h2 style="font-size: 18px; font-weight: 700; color: var(--platinum); margin-bottom: var(--space-sm);">CLI Reference</h2>
+        <p style="font-size: 14px; color: var(--silver); line-height: 1.5;">Complete command reference for building Rails microservices.</p>
       </div>
 
-      <div class="cli-command">
-        <div class="cli-command-header">regolith generate service</div>
-        <div class="cli-command-usage">regolith generate service &lt;service_name&gt;</div>
-        <div class="cli-command-desc">Generate a complete Rails API service with Docker container, CORS configuration, and automatic port assignment.</div>
-        <div class="cli-command-example">Example: regolith generate service products</div>
+      <div class="cli-section">
+        <div class="cli-section-title">Core Commands</div>
+        
+        <div class="cli-command">
+          <div class="cli-command-header">regolith new</div>
+          <div class="cli-command-usage">regolith new &lt;app_name&gt;</div>
+          <div class="cli-command-desc">Create a new Regolith application with PostgreSQL, Docker orchestration, and service registry.</div>
+          <div class="cli-command-example">Example: regolith new marketplace</div>
+        </div>
+
+        <div class="cli-command">
+          <div class="cli-command-header">regolith generate service</div>
+          <div class="cli-command-usage">regolith generate service &lt;service_name&gt;</div>
+          <div class="cli-command-desc">Generate a complete Rails API service with Docker container, CORS configuration, and automatic port assignment.</div>
+          <div class="cli-command-example">Example: regolith generate service products</div>
+        </div>
+
+        <div class="cli-command">
+          <div class="cli-command-header">regolith server</div>
+          <div class="cli-command-usage">regolith server</div>
+          <div class="cli-command-desc">Start all services with Docker Compose. Each service scales independently with production PostgreSQL.</div>
+          <div class="cli-command-example">Starts all services defined in config/regolith.yml</div>
+        </div>
+
+        <div class="cli-command">
+          <div class="cli-command-header">regolith console</div>
+          <div class="cli-command-usage">regolith console &lt;service_name&gt;</div>
+          <div class="cli-command-desc">Open Rails console for a specific service with full Rails environment and database access.</div>
+          <div class="cli-command-example">Example: regolith console products</div>
+        </div>
       </div>
 
-      <div class="cli-command">
-        <div class="cli-command-header">regolith server</div>
-        <div class="cli-command-usage">regolith server</div>
-        <div class="cli-command-desc">Start all services with Docker Compose. Each service scales independently with production PostgreSQL.</div>
-        <div class="cli-command-example">Starts all services defined in config/regolith.yml</div>
-      </div>
-
-      <div class="cli-command">
-        <div class="cli-command-header">regolith console</div>
-        <div class="cli-command-usage">regolith console &lt;service_name&gt;</div>
-        <div class="cli-command-desc">Open Rails console for a specific service with full Rails environment and database access.</div>
-        <div class="cli-command-example">Example: regolith console products</div>
-      </div>
-    </div>
-
-    <div class="cli-workflow">
-      <div class="cli-workflow-title">Getting Started Workflow</div>
-      <div class="cli-workflow-step">
-        <span class="cli-workflow-number">1.</span>
-        <span class="cli-workflow-command">regolith new myapp</span>
-      </div>
-      <div class="cli-workflow-step">
-        <span class="cli-workflow-number">2.</span>
-        <span class="cli-workflow-command">cd myapp</span>
-      </div>
-      <div class="cli-workflow-step">
-        <span class="cli-workflow-number">3.</span>
-        <span class="cli-workflow-command">regolith generate service users</span>
-      </div>
-      <div class="cli-workflow-step">
-        <span class="cli-workflow-number">4.</span>
-        <span class="cli-workflow-command">regolith generate service products</span>
-      </div>
-      <div class="cli-workflow-step">
-        <span class="cli-workflow-number">5.</span>
-        <span class="cli-workflow-command">regolith server</span>
+      <div class="cli-workflow">
+        <div class="cli-workflow-title">Getting Started Workflow</div>
+        <div class="cli-workflow-step">
+          <span class="cli-workflow-number">1.</span>
+          <span class="cli-workflow-command">regolith new myapp</span>
+        </div>
+        <div class="cli-workflow-step">
+          <span class="cli-workflow-number">2.</span>
+          <span class="cli-workflow-command">cd myapp</span>
+        </div>
+        <div class="cli-workflow-step">
+          <span class="cli-workflow-number">3.</span>
+          <span class="cli-workflow-command">regolith generate service users</span>
+        </div>
+        <div class="cli-workflow-step">
+          <span class="cli-workflow-number">4.</span>
+          <span class="cli-workflow-command">regolith generate service products</span>
+        </div>
+        <div class="cli-workflow-step">
+          <span class="cli-workflow-number">5.</span>
+          <span class="cli-workflow-command">regolith server</span>
+        </div>
       </div>
     </div>
   </div>
