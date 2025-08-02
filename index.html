@@ -108,8 +108,10 @@
     }
 
     .nav-shell.docked {
-      top: var(--space-md);
-      left: var(--space-md);
+      top: auto;
+      left: auto;
+      bottom: var(--space-lg);
+      right: var(--space-lg);
       transform: none;
       transition: all 0.5s ease;
       z-index: 100;
@@ -120,17 +122,13 @@
       backdrop-filter: blur(20px) saturate(180%);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-xl);
-      padding: var(--space-sm) var(--space-md);
+      padding: var(--space-md) var(--space-lg);
       display: flex;
       align-items: center;
-      gap: var(--space-xl);
+      gap: var(--space-lg);
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
-    }
-
-    .nav-shell.docked .nav-core {
-      margin-bottom: var(--space-md);
     }
 
     .nav-core::before {
@@ -154,7 +152,7 @@
     .logo-stack {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
       cursor: pointer;
     }
 
@@ -269,7 +267,7 @@
       overflow-y: auto;
       overflow-x: hidden;
       padding: var(--space-xl);
-      padding-bottom: calc(var(--space-2xl) + 96px);
+      padding-bottom: var(--space-2xl);
       scroll-behavior: smooth;
     }
 
@@ -282,9 +280,9 @@
     }
 
     .panel-caption {
-      margin-top: var(--space-xl);
-      padding-top: var(--space-lg);
-      padding-bottom: var(--space-xl);
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      padding-bottom: var(--space-md);
       border-top: 1px solid var(--glass-border);
     }
 
@@ -309,7 +307,6 @@
       color: var(--terminal-green);
     }
 
-    /* CLI Reference Panel */
     /* CLI Reference Panel */
     .cli-panel {
       max-width: 700px;
@@ -414,10 +411,6 @@
       border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
-    }
-
-    .terminal-panel .panel-content {
-      padding-bottom: calc(var(--space-2xl) + 96px);
     }
 
     .terminal-header {
@@ -669,34 +662,33 @@
       border-color: var(--terminal-green);
     }
 
-    /* Responsive */
+    /* Mobile Responsive - Clean, Simple Layout */
     @media (max-width: 768px) {
       .nav-shell {
-        top: 40%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
 
       .nav-shell.docked {
         top: auto;
-        bottom: var(--space-lg);
         left: auto;
-        right: var(--space-lg);
-      }
-
-      .nav-shell.docked .nav-core {
-        margin-bottom: var(--space-xl);
-        margin-right: var(--space-xl);
+        bottom: var(--space-sm);
+        right: var(--space-md);
+        transform: none;
       }
 
       .nav-core {
-        gap: var(--space-md);
-        padding: var(--space-xs) var(--space-md);
+        gap: var(--space-lg);
+        padding: var(--space-md) var(--space-lg);
       }
 
       .logo-part {
-        padding: 4px 8px;
-        font-size: 10px;
+        padding: 6px 10px;
+        font-size: 11px;
       }
 
+      /* Remove glow effects on mobile for cleaner touch experience */
       .logo-part:hover {
         background: var(--glass-hover);
         border-color: var(--terminal-green);
@@ -705,19 +697,22 @@
       }
 
       .content-panel {
-        padding: var(--space-md);
-        margin: var(--space-md);
-        width: calc(100vw - 32px);
+        width: calc(100vw - 24px);
         max-width: none;
-        max-height: 85vh;
-        overflow-y: auto;
-        top: 60px;
+        max-height: calc(100vh - 280px);
+        top: 80px;
         transform: translateX(-50%);
-        margin-top: 0;
+        margin: 0;
+        padding: 0;
       }
 
       .content-panel.active {
         transform: translateX(-50%) scale(1);
+      }
+
+      .panel-content {
+        padding: var(--space-md);
+        padding-bottom: var(--space-md);
       }
 
       .panel-preamble {
@@ -820,24 +815,6 @@
       }
     }
 
-    /* Tablet adjustments */
-    @media (max-width: 1024px) and (min-width: 769px) {
-      .content-panel {
-        padding: var(--space-xl);
-        width: 85vw;
-        max-width: 500px;
-        max-height: 85vh;
-      }
-
-      .terminal-content {
-        font-size: 13px;
-      }
-
-      .composite-view {
-        padding: var(--space-3xl) var(--space-xl);
-      }
-    }
-
     /* Small mobile devices */
     @media (max-width: 480px) {
       body {
@@ -845,28 +822,29 @@
       }
 
       .nav-shell {
-        top: 35%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
 
       .nav-shell.docked {
-        bottom: var(--space-md);
+        position: fixed;
+        top: auto;
+        left: auto;
+        bottom: var(--space-lg);
         right: var(--space-md);
-      }
-
-      .nav-shell.docked .nav-core {
-        margin-bottom: var(--space-lg);
-        margin-right: var(--space-lg);
+        transform: none;
+        z-index: 1000;
       }
 
       .nav-core {
-        gap: var(--space-sm);
-        padding: var(--space-xs) var(--space-sm);
-        transform: scale(1.05);
-        max-width: 140px;
+        gap: var(--space-md);
+        padding: var(--space-sm) var(--space-lg);
+        max-width: 160px;
       }
 
       .logo-part {
-        padding: 8px 14px;
+        padding: 8px 12px;
         font-size: 12px;
       }
 
@@ -875,15 +853,14 @@
       }
 
       .hamburger-line {
-        width: 14px;
-        height: 1.5px;
+        width: 16px;
+        height: 2px;
       }
 
       .content-panel {
-        padding: var(--space-sm);
-        margin: var(--space-sm);
+        top: 60px;
         width: calc(100vw - 16px);
-        max-height: 85vh;
+        max-height: calc(100vh - 260px);
         border-radius: var(--radius-md);
       }
 
@@ -1211,8 +1188,9 @@
       <!-- Contact Section -->
       <div class="composite-section" style="text-align: center; margin-top: var(--space-3xl);">
         <div class="section-label">CONNECT</div>
-        <div style="display: flex; gap: var(--space-xl); justify-content: center; flex-wrap: wrap; margin-top: var(--space-lg);">
+        <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap; margin-top: var(--space-lg);">
           <a href="https://rubygems.org/gems/regolith" style="background: var(--terminal-green); color: var(--void); border: none; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; padding: var(--space-md) var(--space-lg); border-radius: var(--radius-md); transition: all 0.2s ease;" onmouseover="this.style.background='#00cc66'" onmouseout="this.style.background='var(--terminal-green)'">Install Regolith →</a>
+          <a href="mailto:info@regolith.bio" style="color: var(--silver); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: var(--space-md) var(--space-lg); border: 1px solid var(--glass-border); border-radius: var(--radius-md); transition: all 0.2s ease;" onmouseover="this.style.color='var(--terminal-green)'; this.style.borderColor='var(--terminal-green)'" onmouseout="this.style.color='var(--silver)'; this.style.borderColor='var(--glass-border)'">Contact Us →</a>
         </div>
         
         <!-- Footer Logo -->
