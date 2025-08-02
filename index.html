@@ -300,6 +300,13 @@
       color: var(--terminal-green);
     }
 
+    /* Panel Caption Text - hide on very small screens */
+    @media (max-width: 480px) {
+      .panel-caption-text {
+        display: none;
+      }
+    }
+
     /* CLI Reference Panel */
     .cli-panel {
       max-width: 700px;
@@ -659,9 +666,9 @@
 
       .nav-shell.docked {
         top: auto;
-        bottom: var(--space-lg);
+        bottom: var(--space-2xl);
         left: auto;
-        right: var(--space-lg);
+        right: var(--space-2xl);
       }
 
       .nav-core {
@@ -961,7 +968,7 @@
       </div>
       
       <div class="panel-caption" style="margin-top: var(--space-sm);">
-        <p style="margin-bottom: var(--space-xs);">Transparent service generation, cross-boundary associations, and familiar Rails commands — all working across a distributed system without the boilerplate.</p>
+        <p class="panel-caption-text" style="margin-bottom: var(--space-xs);">Familiar Rails commands, now working across a distributed system — no boilerplate.</p>
         <a class="cli-reference" id="showCliRef">View CLI reference →</a>
       </div>
     </div>
