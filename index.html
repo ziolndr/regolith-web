@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google" content="notranslate" />
   <title>Regolith – Infrastructure that flows</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
@@ -658,9 +659,9 @@
 
       .nav-shell.docked {
         top: auto;
-        bottom: var(--space-md);
+        bottom: var(--space-lg);
         left: auto;
-        right: var(--space-md);
+        right: var(--space-lg);
       }
 
       .nav-core {
@@ -819,11 +820,12 @@
       .nav-core {
         gap: var(--space-sm);
         padding: var(--space-xs) var(--space-sm);
+        transform: scale(1.05);
       }
 
       .logo-part {
-        padding: 3px 6px;
-        font-size: 9px;
+        padding: 8px 14px;
+        font-size: 12px;
       }
 
       .hamburger {
@@ -904,14 +906,9 @@
   <!-- Terminal Panel -->
   <div class="content-panel terminal-panel" id="terminalPanel">
     <div class="panel-content">
-      <div class="panel-preamble">
+      <div class="panel-preamble" style="margin-bottom: var(--space-lg);">
         <h2 style="font-size: 18px; font-weight: 700; color: var(--platinum); margin-bottom: var(--space-sm);">Rails for Distributed Systems</h2>
-        <p>Everything you love about Rails — no longer boxed in. Regolith is the missing foundation layer that lets Rails breathe at scale.</p>
-        <div style="display: flex; gap: var(--space-lg); margin: var(--space-md) 0; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--terminal-green);">
-          <span>Full Rails Apps</span>
-          <span>Zero Docker Setup</span>
-          <span>Infinite Rails Magic</span>
-        </div>
+        <p>Everything you love about Rails — no longer boxed in.</p>
       </div>
       
       <div class="terminal-header">
@@ -963,8 +960,8 @@
         </div>
       </div>
       
-      <div class="panel-caption">
-        <p>Transparent service generation, cross-boundary associations, and familiar Rails commands — all working across a distributed system without the boilerplate.</p>
+      <div class="panel-caption" style="margin-top: var(--space-sm);">
+        <p style="margin-bottom: var(--space-xs);">Transparent service generation, cross-boundary associations, and familiar Rails commands — all working across a distributed system without the boilerplate.</p>
         <a class="cli-reference" id="showCliRef">View CLI reference →</a>
       </div>
     </div>
