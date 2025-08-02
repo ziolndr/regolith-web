@@ -239,6 +239,7 @@
       width: 90vw;
       max-height: 85vh;
       overflow-y: auto;
+      padding-bottom: 120px;
       opacity: 0;
       visibility: hidden;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -292,9 +293,10 @@
     /* CLI Reference Panel */
     .cli-panel {
       max-width: 700px;
-      max-height: 80vh;
+      max-height: 85vh;
       overflow-y: auto;
-      overflow-x: hidden;
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--space-xl);
     }
 
     .cli-section {
@@ -1201,19 +1203,9 @@
     let currentPanel = null;
 
     function closeAllPanels() {
-      console.log('Closing all panels');
-      if (terminalPanel) {
-        terminalPanel.classList.remove('active');
-        console.log('Removed active from terminalPanel');
-      }
-      if (stackPanel) {
-        stackPanel.classList.remove('active');
-        console.log('Removed active from stackPanel');
-      }
-      if (cliPanel) {
-        cliPanel.classList.remove('active');
-        console.log('Removed active from cliPanel');
-      }
+      if (terminalPanel) terminalPanel.classList.remove('active');
+      if (stackPanel) stackPanel.classList.remove('active');
+      if (cliPanel) cliPanel.classList.remove('active');
       if (fullSite) fullSite.classList.remove('active');
       if (regoBtn) regoBtn.classList.remove('active');
       if (lithBtn) lithBtn.classList.remove('active');
@@ -1224,15 +1216,9 @@
     }
 
     function showPanel(panel, button) {
-      console.log('showPanel called with:', { panel, button, currentPanel });
-      
-      if (!panel) {
-        console.error('Panel is null or undefined');
-        return;
-      }
+      if (!panel) return;
       
       if (currentPanel === panel) {
-        console.log('Same panel clicked, closing');
         closeAllPanels();
         return;
       }
@@ -1240,13 +1226,14 @@
       closeAllPanels();
       
       setTimeout(() => {
-        console.log('Adding active class to panel:', panel);
-        if (panel) panel.classList.add('active');
+        if (panel) {
+          panel.classList.add('active');
+          panel.scrollTop = 0; // Ensure panel starts at the top
+        }
         if (button) button.classList.add('active');
         if (navCore) navCore.classList.add('active');
         if (navShell) navShell.classList.add('expanded', 'docked');
         currentPanel = panel;
-        console.log('Panel should now be visible');
       }, 100);
     }
 
@@ -1254,30 +1241,21 @@
     if (regoBtn) {
       regoBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        console.log('REGO clicked, terminalPanel:', terminalPanel);
         showPanel(terminalPanel, regoBtn);
       });
-      console.log('REGO event listener added');
-    } else {
-      console.error('regoBtn not found');
     }
 
     if (lithBtn) {
       lithBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        console.log('LITH clicked, stackPanel:', stackPanel);
         showPanel(stackPanel, lithBtn);
       });
-      console.log('LITH event listener added');
-    } else {
-      console.error('lithBtn not found');
     }
 
     // Handle CLI reference link with event delegation
     document.addEventListener('click', (e) => {
       if (e.target && (e.target.id === 'showCliRef' || e.target.classList.contains('cli-reference'))) {
         e.preventDefault();
-        console.log('CLI reference clicked, cliPanel:', cliPanel);
         showPanel(cliPanel, null);
       }
     });
