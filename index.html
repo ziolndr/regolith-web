@@ -486,8 +486,6 @@
     .terminal-line:nth-child(4) { animation-delay: 0.8s; }
     .terminal-line:nth-child(5) { animation-delay: 1.0s; }
     .terminal-line:nth-child(6) { animation-delay: 1.2s; }
-    .terminal-line:nth-child(7) { animation-delay: 1.4s; }
-    .terminal-line:nth-child(8) { animation-delay: 1.6s; }
 
     @keyframes slideUp {
       to {
@@ -933,8 +931,6 @@
       <li>regolith generate service - Generate Rails API service with Docker</li>
       <li>regolith server - Start all services with Docker Compose</li>
       <li>regolith console - Open Rails console for specific service</li>
-      <li>regolith rails - Run Rails commands in service containers</li>
-      <li>regolith health - Health check all services</li>
     </ul>
     <h3>Technologies</h3>
     <p>Rails 7, PostgreSQL, Docker Compose, service registry, API development, microservices architecture, horizontal scaling, container orchestration</p>
@@ -994,18 +990,28 @@
           <span class="output output-success">✓ Created Regolith app 'marketplace'</span>
         </div>
         <div class="terminal-line">
+          <span class="output output-info">→ Next: cd marketplace && regolith generate service &lt;service_name&gt;</span>
+        </div>
+        <div class="terminal-line">
+          <span class="prompt">$</span>
+          <span class="command"> cd marketplace</span>
+        </div>
+        <div class="terminal-line">
           <span class="prompt">$</span>
           <span class="command"> regolith generate service products</span>
+        </div>
+        <div class="terminal-line">
+          <span class="output output-warning">→ Creating service 'products'...</span>
         </div>
         <div class="terminal-line">
           <span class="output output-success">✓ Created service 'products'</span>
         </div>
         <div class="terminal-line">
           <span class="prompt">$</span>
-          <span class="command"> regolith rails products db:migrate</span>
+          <span class="command"> regolith server</span>
         </div>
         <div class="terminal-line">
-          <span class="output output-info">→ Running db:migrate for products...</span>
+          <span class="output output-info">→ products_service running at http://localhost:3001</span>
         </div>
       </div>
       
@@ -1089,173 +1095,10 @@
         </div>
 
         <div class="cli-command">
-          <div class="cli-command-header">regolith rails</div>
-          <div class="cli-command-usage">regolith rails &lt;service&gt; &lt;command&gt;</div>
-          <div class="cli-command-desc">Run Rails commands in service containers. Maintains Rails DX while working with microservices.</div>
-          <div class="cli-command-example">Example: regolith rails products db:migrate</div>
-        </div>
-
-        <div class="cli-command">
           <div class="cli-command-header">regolith console</div>
           <div class="cli-command-usage">regolith console &lt;service_name&gt;</div>
           <div class="cli-command-desc">Open Rails console for a specific service with full Rails environment and database access.</div>
           <div class="cli-command-example">Example: regolith console products</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith open</div>
-          <div class="cli-command-usage">regolith open &lt;service&gt;</div>
-          <div class="cli-command-desc">Open service in browser. Works on macOS, Linux, and Windows.</div>
-          <div class="cli-command-example">Example: regolith open products</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith shell</div>
-          <div class="cli-command-usage">regolith shell &lt;service&gt;</div>
-          <div class="cli-command-desc">Open interactive shell in service container.</div>
-          <div class="cli-command-example">Example: regolith shell products</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith routes</div>
-          <div class="cli-command-usage">regolith routes &lt;service&gt;</div>
-          <div class="cli-command-desc">Show routes for a specific service.</div>
-          <div class="cli-command-example">Example: regolith routes products</div>
-        </div>
-      </div>
-
-      <div class="cli-section">
-        <div class="cli-section-title">Service Management</div>
-        
-        <div class="cli-command">
-          <div class="cli-command-header">regolith up / server</div>
-          <div class="cli-command-usage">regolith up</div>
-          <div class="cli-command-desc">Start all services with Docker Compose and health checks.</div>
-          <div class="cli-command-example">Starts all services defined in config/regolith.yml</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith down</div>
-          <div class="cli-command-usage">regolith down</div>
-          <div class="cli-command-desc">Stop and remove all services and volumes.</div>
-          <div class="cli-command-example">Clean shutdown of entire stack</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith restart</div>
-          <div class="cli-command-usage">regolith restart [service]</div>
-          <div class="cli-command-desc">Restart one or all services.</div>
-          <div class="cli-command-example">Example: regolith restart products</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith ps / status</div>
-          <div class="cli-command-usage">regolith ps</div>
-          <div class="cli-command-desc">Show running containers with service count and port summary. Exits non-zero if services are unhealthy.</div>
-          <div class="cli-command-example">Shows container status and port mappings</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith logs</div>
-          <div class="cli-command-usage">regolith logs [service] [-f]</div>
-          <div class="cli-command-desc">View service logs with optional follow mode for real-time monitoring.</div>
-          <div class="cli-command-example">Example: regolith logs products -f</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith exec</div>
-          <div class="cli-command-usage">regolith exec &lt;service&gt; [command]</div>
-          <div class="cli-command-desc">Execute commands in service containers.</div>
-          <div class="cli-command-example">Example: regolith exec products bash</div>
-        </div>
-      </div>
-
-      <div class="cli-section">
-        <div class="cli-section-title">Database Operations</div>
-        
-        <div class="cli-command">
-          <div class="cli-command-header">regolith db:migrate</div>
-          <div class="cli-command-usage">regolith db:migrate [service|--all]</div>
-          <div class="cli-command-desc">Run database migrations on one or all services with error handling.</div>
-          <div class="cli-command-example">Example: regolith db:migrate --all</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith db:create</div>
-          <div class="cli-command-usage">regolith db:create [service|--all]</div>
-          <div class="cli-command-desc">Create databases for services.</div>
-          <div class="cli-command-example">Example: regolith db:create products</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith db:seed</div>
-          <div class="cli-command-usage">regolith db:seed [service|--all]</div>
-          <div class="cli-command-desc">Seed databases with sample data.</div>
-          <div class="cli-command-example">Example: regolith db:seed --all</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith db:reset</div>
-          <div class="cli-command-usage">regolith db:reset [service|--all]</div>
-          <div class="cli-command-desc">Reset databases (drop, create, migrate, seed).</div>
-          <div class="cli-command-example">Example: regolith db:reset products</div>
-        </div>
-      </div>
-
-      <div class="cli-section">
-        <div class="cli-section-title">Testing & Health</div>
-        
-        <div class="cli-command">
-          <div class="cli-command-header">regolith test</div>
-          <div class="cli-command-usage">regolith test [service|--all]</div>
-          <div class="cli-command-desc">Run tests on services with proper exit codes and error reporting.</div>
-          <div class="cli-command-example">Example: regolith test --all</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith health</div>
-          <div class="cli-command-usage">regolith health</div>
-          <div class="cli-command-desc">Check health status of all services with structured response data, versions, and timestamps.</div>
-          <div class="cli-command-example">Shows service health with version and last seen time</div>
-        </div>
-      </div>
-
-      <div class="cli-section">
-        <div class="cli-section-title">Utilities</div>
-        
-        <div class="cli-command">
-          <div class="cli-command-header">regolith inspect</div>
-          <div class="cli-command-usage">regolith inspect [--json]</div>
-          <div class="cli-command-desc">Show services, resolved endpoints, and full configuration. JSON output for automation and CI/CD.</div>
-          <div class="cli-command-example">Example: regolith inspect --json | jq '.services'</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith config</div>
-          <div class="cli-command-usage">regolith config [--json]</div>
-          <div class="cli-command-desc">Show current configuration with JSON output option.</div>
-          <div class="cli-command-example">Example: regolith config --json</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith doctor</div>
-          <div class="cli-command-usage">regolith doctor</div>
-          <div class="cli-command-desc">Run system diagnostics to check Docker, Rails, PostgreSQL, and configuration health.</div>
-          <div class="cli-command-example">Checks dependencies and project setup</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith prune</div>
-          <div class="cli-command-usage">regolith prune</div>
-          <div class="cli-command-desc">Clean up Docker system and remove unused containers and volumes.</div>
-          <div class="cli-command-example">Frees up disk space</div>
-        </div>
-
-        <div class="cli-command">
-          <div class="cli-command-header">regolith rebuild</div>
-          <div class="cli-command-usage">regolith rebuild [service]</div>
-          <div class="cli-command-desc">Rebuild service images with --no-cache for fresh builds.</div>
-          <div class="cli-command-example">Example: regolith rebuild products</div>
         </div>
       </div>
 
@@ -1275,14 +1118,10 @@
         </div>
         <div class="cli-workflow-step">
           <span class="cli-workflow-number">4.</span>
-          <span class="cli-workflow-command">regolith rails users db:migrate</span>
+          <span class="cli-workflow-command">regolith generate service products</span>
         </div>
         <div class="cli-workflow-step">
           <span class="cli-workflow-number">5.</span>
-          <span class="cli-workflow-command">regolith health</span>
-        </div>
-        <div class="cli-workflow-step">
-          <span class="cli-workflow-number">6.</span>
           <span class="cli-workflow-command">regolith server</span>
         </div>
       </div>
@@ -1322,14 +1161,10 @@
           </div>
           <div class="terminal-line">
             <span class="prompt">$</span>
-            <span class="command"> regolith health</span>
+            <span class="command"> regolith generate service orders</span>
           </div>
           <div class="terminal-line">
-            <span class="output output-success">✅ products (port 3001) - healthy</span>
-          </div>
-          <div class="terminal-line">
-            <span class="prompt">$</span>
-            <span class="command"> regolith open products</span>
+            <span class="output output-success">✓ Created service 'orders'</span>
           </div>
           <div class="terminal-line">
             <span class="prompt">$</span>
@@ -1337,6 +1172,9 @@
           </div>
           <div class="terminal-line">
             <span class="output output-info">→ products_service running at http://localhost:3001</span>
+          </div>
+          <div class="terminal-line">
+            <span class="output output-info">→ orders_service running at http://localhost:3002</span>
           </div>
         </div>
       </div>
